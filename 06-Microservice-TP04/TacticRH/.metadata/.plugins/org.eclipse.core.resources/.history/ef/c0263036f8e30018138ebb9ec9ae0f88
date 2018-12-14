@@ -1,0 +1,125 @@
+package fr.tacticrh.utilisateur.persistence.model;
+
+import java.io.Serializable;
+
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * <b>ENTITE DU MODELE CONCEPTUEL DE DONNEES DE L'APPLICATION</b><br/>
+ *    ENTITE : Personne<br/>
+ *    <br/>
+ * @author 1603599
+ */
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "PERSONNE_TYPE", discriminatorType = DiscriminatorType.STRING, length = 1)
+@Entity
+public class Personne implements Serializable {
+
+	
+	/**
+	 * <b>OBJET QUI POSSEDE LES FONCTIONNALITES SUIVANTES : </b> <br/>
+	 * <br/>
+	 * Les fonctionnalites d'ecriture de messages de log dans la console.
+	 */
+	@Transient
+	private static final Logger LOGGER = LoggerFactory.getLogger(Personne.class);
+
+	@Transient
+	private static final long serialVersionUID = 1L;
+
+    private String nom;
+    private String prenom;
+    private String dateNaissance;
+    private String telephone;
+    private String codePostal;
+    private String ville;
+
+    
+    /**
+     * <b>CONSTRUCTEUR AVEC LES ARGUMENTS : AUCUN</b><br/>
+     * <br/>
+     */
+    public Personne() {}
+
+
+	/**
+     * <b>CONSTRUCTEUR AVEC LES ARGUMENTS : TOUS LES ATTRIBUTS</b><br/>
+     * <br/>
+	 * @param pNom
+	 * @param pPrenom
+	 * @param pDateNaissance
+	 * @param pTelephone
+	 * @param pCodePostal
+	 * @param pVille
+	 */
+    public Personne(String pNom, String pPrenom, String pDateNaissance
+					, String pTelephone
+					, String pCodePostal, String pVille
+					) {
+		this.nom           = pNom;
+		this.prenom        = pPrenom;
+		this.dateNaissance = pDateNaissance;
+		this.telephone     = pTelephone;
+		this.codePostal    = pCodePostal;
+		this.ville         = pVille;
+    }
+
+    
+    /**
+     * <b>CONSTRUCTEUR DE RECOPIE</b><br/>
+     * <br/>
+     * @param pPersonne
+     */
+    public Personne(Personne pPersonne) {
+    	
+    	super((Utilisateur)pPersonne);
+    	
+		this.nom           = pPersonne.getNom();
+		this.prenom        = pPersonne.getPrenom();
+		this.dateNaissance = pPersonne.getDateNaissance();
+		this.telephone     = pPersonne.getTelephone();
+		this.codePostal    = pPersonne.getCodePostal();
+		this.ville         = pPersonne.getVille();
+    }
+    
+    
+	public String getNom           () { return this.nom;           }
+	public String getPrenom        () { return this.prenom;        }
+	public String getDateNaissance () { return this.dateNaissance; }
+	public String getTelephone     () { return this.telephone;     }
+	public String getCodePostal    () { return this.codePostal;    }
+	public String getVille         () { return this.ville;         }
+
+	
+	public void setNom           (String pNom          ) { this.nom           = pNom;           }
+	public void setPrenom        (String pPrenom       ) { this.prenom        = pPrenom;        }
+	public void setDateNaissance (String pDateNaissance) { this.dateNaissance = pDateNaissance; }
+	public void setTelephone     (String pTelephone    ) { this.telephone     = pTelephone;     }
+	public void setCodePostal    (String pCodePostal   ) { this.codePostal    = pCodePostal;    }
+	public void setVille         (String pVille        ) { this.ville         = pVille;         }
+
+
+    @Override
+    public String toString() {
+        return "Personne{"
+		        			   + "User"          + "="  + super.toString()
+		        		+ ", " + "nom"           + "='" + this.nom           + "'"
+		                + ", " + "prenom"        + "='" + this.prenom        + "'"
+		                + ", " + "telephone"     + "='" + this.telephone     + "'"
+		                + ", " + "codePostale"   + "='" + this.codePostal    + "'"
+		                + ", " + "ville"         + "='" + this.ville         + "'"
+		                + ", " + "dateNaissance" + "='" + this.dateNaissance + "'"
+		                + '}'; 
+    }
+}

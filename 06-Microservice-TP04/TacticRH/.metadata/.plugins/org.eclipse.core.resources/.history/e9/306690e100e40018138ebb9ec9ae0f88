@@ -1,0 +1,100 @@
+package fr.tacticrh.utilisateur.persistence.model;
+
+import java.io.Serializable;
+
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Transient;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import lombok.Data;
+
+/**
+ * <b>ENTITE DU MODELE CONCEPTUEL DE DONNEES DE L'APPLICATION</b><br/>
+ *    ENTITE : Personne<br/>
+ *    <br/>
+ * @author 1603599
+ */
+@Data
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "PERSONNE_TYPE", discriminatorType = DiscriminatorType.STRING, length = 3)
+@Entity
+public class Personne implements Serializable {
+
+	
+	@Transient
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * <b>OBJET QUI POSSEDE LES FONCTIONNALITES SUIVANTES : </b> <br/>
+	 * <br/>
+	 * Les fonctionnalites d'ecriture de messages de log dans la console.
+	 */
+	@Transient
+	private static final Logger LOGGER = LoggerFactory.getLogger(Personne.class);
+
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+	
+    private String nom;
+    private String prenom;
+    private String dateNaissance;
+
+    
+    /**
+     * <b>CONSTRUCTEUR AVEC LES ARGUMENTS : AUCUN</b><br/>
+     * <br/>
+     */
+    public Personne() {}
+
+	/**
+     * <b>CONSTRUCTEUR AVEC LES ARGUMENTS : TOUS LES ATTRIBUTS</b><br/>
+     * <br/>
+	 * @param pId
+	 * @param pNom
+	 * @param pPrenom
+	 * @param pDateNaissance
+	 */
+    public Personne(Long pId
+    				, String pNom, String pPrenom, String pDateNaissance) {
+		this.id            = pId;
+		this.nom           = pNom;
+		this.prenom        = pPrenom;
+		this.dateNaissance = pDateNaissance;
+    }
+
+	/**
+     * <b>CONSTRUCTEUR AVEC LES ARGUMENTS : TOUS LES ATTRIBUTS, SAUF L'ID</b><br/>
+     * <br/>
+	 * @param pNom
+	 * @param pPrenom
+	 * @param pDateNaissance
+	 */
+    public Personne(String pNom, String pPrenom, String pDateNaissance) {
+		this.nom           = pNom;
+		this.prenom        = pPrenom;
+		this.dateNaissance = pDateNaissance;
+    }
+    
+    /**
+     * <b>CONSTRUCTEUR DE RECOPIE</b><br/>
+     * <br/>
+     * @param pPersonne
+     */
+    public Personne(Personne pPersonne) {
+    	
+		this.id            = pPersonne.getId();
+		this.nom           = pPersonne.getNom();
+		this.prenom        = pPersonne.getPrenom();
+		this.dateNaissance = pPersonne.getDateNaissance();
+    }
+}

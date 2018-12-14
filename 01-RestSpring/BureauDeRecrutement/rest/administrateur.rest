@@ -1,0 +1,29 @@
+
+
+################################################################################
+# (01.)CREATION D'UN ADMINISTRATEUR
+################################################################################
+POST http://localhost:8080/BureauDeRecrutement/administrateur
+
+
+################################################################################
+# (02.)RECHERCHE D'UNE LISTE DE CANDIDATS SANS CRITERE :
+#      ->LISTE DE TOUS LES ADMINISTRATEURS.
+################################################################################
+GET http://localhost:8080/BureauDeRecrutement/administrateur/all
+
+
+################################################################################
+# (03.)RECHERCHE D'UN ADMINISTRATEUR AVEC CRITERE :
+#      ->CRITERE : L'ATTRIBUT "ID" (CLE PRIMAIRE).
+#      ->VALEURS POSSIBLES : "5"
+################################################################################
+GET http://localhost:8080/BureauDeRecrutement/administrateur/id/5
+
+
+################################################################################
+# (04.)RECHERCHE D'UNE LISTE DE ADMINISTRATEURS AVEC CRITERE :
+#      ->CRITERE : L'ATTRIBUT "MAIL".
+#      ->VALEURS POSSIBLES : "patrice.clotaire@hotmail.com"
+################################################################################
+GET http://localhost:8080/BureauDeRecrutement/administrateur/mail?personneMail=patrice.clotaire@hotmail.com

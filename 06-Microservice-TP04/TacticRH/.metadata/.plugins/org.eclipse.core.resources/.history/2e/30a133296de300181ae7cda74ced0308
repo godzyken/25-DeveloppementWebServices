@@ -1,0 +1,126 @@
+package fr.bc.user.service;
+
+import fr.bc.user.bean.JoueurBean;
+import fr.bc.user.bean.SponsorBean;
+import fr.bc.user.dao.*;
+import fr.bc.user.model.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+
+/**
+ * <b>CLASSE IMPLEMENTANT LES FONCTIONNALITES SUIVANTES :</b><br/>
+ *    -->LES FONCTIONNALITES METIER.<br/>
+ *    -->TYPE D'ENTITE CONCERNEE : 'User'
+ *    <br/>
+ */
+@Service
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    RoleDAO roleDAO;
+
+    @Autowired
+    GenreDAO genreDAO;
+
+    @Autowired
+    JoueurDAO joueurDAO;
+
+    @Autowired
+    SponsorDAO sponsorDAO;
+
+    @Autowired
+    PersonneDAO personneDAO;
+
+    @Autowired
+    UserDAO userDAO;
+
+
+    public JoueurBean enregistrer(JoueurBean joueurBean) {
+
+        Role roleObjet = roleDAO.findByLibelle(joueurBean.getRole()).get();
+        System.out.println("Ceci est le role : " + roleObjet.toString());
+
+        Genre genreObjet = genreDAO.findByLibelleGenre(joueurBean.getGenre()).get();
+        System.out.println("Ceci est le Genre : " + genreObjet.toString());
+
+        Joueur joueurFinal = new Joueur(joueurBean.getEmail(), joueurBean.getMdp(), roleObjet, joueurBean.getNom(),
+                joueurBean.getPrenom(), joueurBean.getNumeroTelephone(), joueurBean.getCodePostale(), joueurBean.getVille(),
+                joueurBean.getDateNaissance(), genreObjet, joueurBean.getNbCroquette(), joueurBean.getNbSuperCroquette());
+
+        joueurDAO.save(joueurFinal);
+    }
+
+    public JoueurBean rechercherParId(long pId) {
+
+        Joueur joueur1 = joueurDAO.findById(pId).get();
+
+        Personne personne1 = personneDAO.findById(joueur1.getId()).get();
+        User user1 = userDAO.findById(joueur1.getId()).get();
+
+        JoueurBean joueurBean = new JoueurBean(joueur1.getId(),user1.getEmail(), user1.getMdp(),user1.getRole().getLibelle(),
+                personne1.getNom(),personne1.getPrenom(), personne1.getTelephone(),personne1.getCodePostale(),
+                personne1.getVille(),personne1.getDateNaissance(),personne1.getGenre().getLibelleGenre(),
+                joueur1.getNbCroquette(), joueur1.getNbSuperCroquette());
+
+        return joueurBean;
+    }
+
+    public List<JoueurBean> rechercherTous() {
+
+        List<Joueur> joueurs            = joueurDAO.findAll();
+        List<JoueurBean> joueurBeanList = new ArrayList<>();
+
+        for (Joueur joueur1 : joueurs) {
+
+            Personne    personne1 = personneDAO.findById(joueur1.getId()).get();
+            User        user1     = userDAO.findById(joueur1.getId()).get();
+
+            JoueurBean joueurBean = new JoueurBean(joueur1.getId(),user1.getEmail(), user1.getMdp(),user1.getRole().getLibelle(),
+                    personne1.getNom(),personne1.getPrenom(), personne1.getTelephone(),personne1.getCodePostale(),
+                    personne1.getVille(),personne1.getDateNaissance(),personne1.getGenre().getLibelleGenre(),
+                    joueur1.getNbCroquette(), joueur1.getNbSuperCroquette());
+
+            joueurBeanList.add(joueurBean);
+        }
+        return joueurBeanList;
+    }
+    
+    public void modifier(JoueurBean joueurBean) {
+
+        Optional<Joueur> joueurBase     = joueurDAO.findById(joueurBean.getId());
+        Optional<Personne> personneBase = personneDAO.findById(joueurBean.getId());
+        Optional<User> userBase         = userDAO.findById(joueurBean.getId());
+
+        Joueur joueur1      = joueurBase.get();
+        Personne personne1  = personneBase.get();
+        User user1          = userBase.get();
+
+    //USER =========================================================
+        user1.setEmail(joueurBean.getEmail());
+        user1.setMdp(joueurBean.getMdp());
+    //PERSONNE =====================================================
+        personne1.setNom(joueurBean.getNom());
+        personne1.setPrenom(joueurBean.getPrenom());
+        personne1.setTelephone(joueurBean.getNumeroTelephone());
+        personne1.setCodePostale(joueurBean.getCodePostale());
+        personne1.setVille(joueurBean.getVille());
+        personne1.setDateNaissance(joueurBean.getDateNaissance());
+    //JOUEUR =======================================================
+        joueur1.setNbCroquette(joueurBean.getNbCroquette());
+        joueur1.setNbSuperCroquette(joueurBean.getNbSuperCroquette());
+    //==============================================================
+
+        userDAO.save(user1);
+        personneDAO.save(personne1);
+        joueurDAO.save(joueur1);
+    }
+
+    public void supprimer(Long id) { userDAO.deleteById(id); }
+
+}

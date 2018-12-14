@@ -1,0 +1,103 @@
+package fr.tacticrh.utilisateur.business.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import fr.tacticrh.utilisateur.business.exception.UtilisateurNotFoundException;
+import fr.tacticrh.utilisateur.persistence.dao.UtilisateurDao;
+import fr.tacticrh.utilisateur.persistence.model.Utilisateur;
+
+/**
+ * <b>CLASSE IMPLEMENTANT LES FONCTIONNALITES SUIVANTES :</b><br/>
+ *    -->LES FONCTIONNALITES METIER.<br/>
+ *    -->TYPE D'ENTITE CONCERNEE : 'Utilisateur'
+ *    <br/>
+ */
+public class UtilisateurServiceImpl implements UtilisateurService {
+
+	
+	private static final String ERROR__UTILISATEUR_FIND_ALL__NOT_AVAILABLE = "Recherche de tous les utilisateurs -- Utilisateurs indisponibles";
+	private static final String ERROR__UTILISATEUR_FIND_BY_ID__NOT_FOUND = "Recherche d'un utilisateur par id -- Utilisateur introuvable";
+
+	/**
+	 * <b>OBJET QUI POSSEDE LES FONCTIONNALITES SUIVANTES : </b> <br/>
+	 * <br/>
+	 * Les fonctionnalites d'ecriture de messages de log dans la console.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(UtilisateurServiceImpl.class);
+	
+	/**
+	 * <b>COMPOSANT DE PERSISTANCE RELATIF A L'ENTITE CI-DESSOUS :</b><br/>
+	 * <br/>
+	 * ->ENTITE : 'Account'.<br/> 
+	 */    
+    @Autowired
+    private UtilisateurDao utilisateurDao;
+
+	
+	@Override
+	@RequestMapping(value="/utilisateur", method= RequestMethod.POST)
+	public Utilisateur enregistrer(@RequestBody Utilisateur pUtilisateur) {
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : enregistrer -- BEGIN");
+		Utilisateur utilisateurCreated = utilisateurDao.save(pUtilisateur);
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : enregistrer -- END");
+		return utilisateurCreated;
+	}
+
+	@Override
+	@RequestMapping(value="/utilisateur", method= RequestMethod.GET)
+	public List<Utilisateur> rechercherTous() {
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : rechercherTous -- BEGIN");
+		List<Utilisateur> utilisateurs = utilisateurDao.findAll();
+		
+		if((utilisateurs == null) || (utilisateurs.isEmpty())) {
+			LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : rechercherTous -- END");
+			throw new UtilisateurNotFoundException(ERROR__UTILISATEUR_FIND_ALL__NOT_AVAILABLE);
+		}
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : rechercherTous -- END");
+		return utilisateurs;
+	}
+
+	@Override
+	@RequestMapping(value="/utilisateur/{id}", method= RequestMethod.GET)
+	public Utilisateur rechercherParId(@PathVariable("id") Long pId) {
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : rechercherParId -- BEGIN");
+		Optional<Utilisateur> utilisateurOptional = utilisateurDao.findById(pId);
+		
+		if (!utilisateurOptional.isPresent()) {
+			LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : rechercherParId -- END");
+			throw new UtilisateurNotFoundException(ERROR__UTILISATEUR_FIND_BY_ID__NOT_FOUND);
+		}
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : rechercherParId -- END");
+		return utilisateurOptional.get();
+	}
+
+	@Override
+	@RequestMapping(value="/utilisateur", method= RequestMethod.PATCH)
+	public Utilisateur modifierParId(@RequestBody Utilisateur pUtilisateur) {
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : modifierParId -- BEGIN");
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : modifierParId -- END");
+		return null;
+	}
+
+	@Override
+	@RequestMapping(value="/utilisateur/{id}", method= RequestMethod.DELETE)
+	public Long supprimerParId(@PathVariable("id") Long pId) {
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : supprimerParId -- BEGIN");
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : supprimerParId -- END");
+		return null;
+	}
+}

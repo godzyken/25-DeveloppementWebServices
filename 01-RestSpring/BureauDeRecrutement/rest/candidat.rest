@@ -1,0 +1,38 @@
+
+
+################################################################################
+# (01.)CREATION D'UN CANDIDAT
+################################################################################
+POST http://localhost:8080/BureauDeRecrutement/candidat
+
+
+################################################################################
+# (02.)RECHERCHE D'UNE LISTE DE CANDIDATS SANS CRITERE :
+#      ->LISTE DE TOUS LES CANDIDATS.
+################################################################################
+GET http://localhost:8080/BureauDeRecrutement/candidat/all
+
+
+################################################################################
+# (03.)RECHERCHE D'UN CANDIDAT AVEC CRITERE :
+#      ->CRITERE : L'ATTRIBUT "ID" (CLE PRIMAIRE).
+#      ->VALEURS POSSIBLES : "1", "2", "3", "4"
+################################################################################
+GET http://localhost:8080/BureauDeRecrutement/candidat/id/1
+GET http://localhost:8080/BureauDeRecrutement/candidat/id/2
+GET http://localhost:8080/BureauDeRecrutement/candidat/id/3
+GET http://localhost:8080/BureauDeRecrutement/candidat/id/6
+
+
+################################################################################
+# (04.)RECHERCHE D'UNE LISTE DE CANDIDATS AVEC CRITERE :
+#      ->CRITERE : L'ATTRIBUT "MAIL".
+#      ->VALEURS POSSIBLES : "patrick.kabeya@hotmail.com"
+#                          , "franck.tabataba@hotmail.com"
+#                          , "tcharou.dalgalian@hotmail.com"
+#                          , "didierbono@gmail.fr"
+################################################################################
+GET http://localhost:8080/BureauDeRecrutement/candidat/mail?personneMail=patrick.kabeya@hotmail.com
+GET http://localhost:8080/BureauDeRecrutement/candidat/mail?personneMail=franck.tabataba@hotmail.com
+GET http://localhost:8080/BureauDeRecrutement/candidat/mail?personneMail=tcharou.dalgalian@hotmail.com
+GET http://localhost:8080/BureauDeRecrutement/candidat/mail?personneMail=didier.bono@gmail.fr

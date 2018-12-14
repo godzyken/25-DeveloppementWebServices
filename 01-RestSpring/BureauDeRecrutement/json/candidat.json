@@ -1,0 +1,7 @@
+[
+	{"civilite":"M.", "nom":"Kabeya"   , "prenom":"Patrick"    , "age":40, "telephone":"01.43.82.82.82", "mail":"patrick.kabeya@hotmail.com"   , "motDePasse":"xxxx"   },
+	{"civilite":"M.", "nom":"Taba Taba", "prenom":"Franck"     , "age":43, "telephone":"01.43.82.82.82", "mail":"franck.tabataba@hotmail.com"  , "motDePasse":"yyyy"   },
+	{"civilite":"M.", "nom":"Dalgalian", "prenom":"Tcharou"    , "age":48, "telephone":"07.83.41.59.92", "mail":"tcharou.dalgalian@hotmail.com", "motDePasse":"zzzz"   },
+	{"civilite":"M.", "nom":"Bono"     , "prenom":"Didier"     , "age":58, "telephone":"06.00.00.00.01", "mail":"didier.bono@afpa.fr"          , "motDePasse":"tttt"   },
+	{"civilite":"M.", "nom":"Gineste"  , "prenom":"Michel"     , "age":63, "telephone":"06.00.00.00.02", "mail":"michel.gineste@afpa.fr"       , "motDePasse":"mmmm"   }
+]

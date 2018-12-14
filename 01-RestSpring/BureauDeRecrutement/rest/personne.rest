@@ -1,0 +1,37 @@
+
+
+################################################################################
+# (01.)CREATION D'UNE PERSONNE
+################################################################################
+POST http://localhost:8080/BureauDeRecrutement/personne
+
+
+################################################################################
+# (02.)RECHERCHE D'UNE LISTE DE PERSONNES SANS CRITERE :
+#      ->LISTE DE TOUTES LES PERSONNES.
+################################################################################
+GET http://localhost:8080/BureauDeRecrutement/personne/all
+
+
+################################################################################
+# (03.)RECHERCHE D'UNE PERSONNE AVEC CRITERE :
+#      ->CRITERE : L'ATTRIBUT "ID" (CLE PRIMAIRE).
+#      ->VALEURS POSSIBLES : "1", "2", "3", "4"
+################################################################################
+GET http://localhost:8080/BureauDeRecrutement/personne/id/1
+GET http://localhost:8080/BureauDeRecrutement/personne/id/2
+GET http://localhost:8080/BureauDeRecrutement/personne/id/3
+GET http://localhost:8080/BureauDeRecrutement/personne/id/4
+GET http://localhost:8080/BureauDeRecrutement/personne/id/5
+GET http://localhost:8080/BureauDeRecrutement/personne/id/6
+
+
+################################################################################
+# (04.)RECHERCHE D'UNE LISTE DE PERSONNES AVEC CRITERE :
+#      ->CRITERE : L'ATTRIBUT "MAIL".
+#      ->VALEURS POSSIBLES : "patrick.kabeya@hotmail.com", "franck.tabataba@hotmail.com", "tcharou.dalgalian@hotmail.com", "didierbono@gmail.fr"
+################################################################################
+GET http://localhost:8080/BureauDeRecrutement/personne/mail?personneMail=patrick.kabeya@hotmail.com
+GET http://localhost:8080/BureauDeRecrutement/personne/mail?personneMail=franck.tabataba@hotmail.com
+GET http://localhost:8080/BureauDeRecrutement/personne/mail?personneMail=tcharou.dalgalian@hotmail.com
+GET http://localhost:8080/BureauDeRecrutement/personne/mail?personneMail=didier.bono@gmail.fr

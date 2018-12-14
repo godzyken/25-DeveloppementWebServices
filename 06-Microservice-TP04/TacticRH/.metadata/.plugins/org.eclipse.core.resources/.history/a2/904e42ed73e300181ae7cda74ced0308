@@ -1,0 +1,60 @@
+package fr.tacticrh.utilisateur.web.controller;
+
+import java.util.List;
+
+import fr.tacticrh.utilisateur.persistence.model.Utilisateur;
+
+/**
+ * <b>CLASSE EXPOSANT LES FONCTIONNALITES SUIVANTES :</b><br/>
+ *    -->LES FONCTIONNALITES DE NAVIGATION ET DE RECEPTION DE REQUETE HTTP.<br/>
+ *    -->TYPE D'ENTITE CONCERNEE : 'Utilisateur'
+ *    <br/>
+ */
+public interface UtilisateurController {
+
+	
+	/**
+	 * <b>EFFECTUER L'OPERATION DE CREATION CI-DESSOUS :</b><br/>
+	 * <br/>
+	 * ->(01.)ENTITE A CREER : 'Utilisateur'.<br/> 
+	 *    
+	 * @param pUtilisateur L'entité a créer.
+	 * @return Utilisateur L'entité créée.
+     */
+	public Utilisateur enregistrer(Utilisateur pUtilisateur);
+    
+    /**
+	 * <b>EFFECTUER L'OPERATION DE RECHERCHE CI-DESSOUS :</b><br/>
+	 * <br/>
+	 * ->(01.)ENTITE RECHERCHEE : 'Utilisateur'.<br/> 
+	 * ->(02.)CRITERE DE RECHERCHE : AUCUN.<br/> 
+	 * ->(03.)CONDITION A SATISFAIRE : AUCUNE.<br/>
+	 *    
+	 * @return List<Utilisateur> La liste d'entités trouvées.
+     */
+	public List<Utilisateur> rechercherTous();
+
+    /**
+     * <b>RECHERCHER PAR ID UNE ENTITE DU TYPE CI-DESSOUS :</b><br/>
+     *    -->TYPE D'ENTITE CONCERNEE : 'Utilisateur'
+     * 
+     * @param pId
+     */
+	public Utilisateur rechercherParId(long pId);
+	
+    /**
+     * <b>MODIFIER UNE ENTITE DU TYPE CI-DESSOUS :</b><br/>
+     *    -->TYPE D'ENTITE CONCERNEE : 'Utilisateur'
+     * 
+     * @param pUtilisateur
+     */
+	public Utilisateur modifierParId(Utilisateur pUtilisateur);
+    
+    /**
+     * <b>SUPPRIMER PAR ID UNE ENTITE DU TYPE CI-DESSOUS :</b><br/>
+     *    -->TYPE D'ENTITE CONCERNEE : 'Utilisateur'
+     * 
+     * @param pId
+     */
+	public void supprimerParId(long pId);
+}

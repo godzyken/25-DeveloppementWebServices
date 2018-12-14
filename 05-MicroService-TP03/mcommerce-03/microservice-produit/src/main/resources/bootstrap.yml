@@ -1,0 +1,14 @@
+######################################################
+# ---- (01.)SPRING-CONFIGURATION ----
+######################################################
+spring:
+
+  # ---- (01.01.)SPRING-APPLICATION-CONFIGURATION ----
+  application:
+    name: "microservice-produit"
+
+  # ---- (01.02.)SPRING-CLOUD-CONFIGURATION ----
+  cloud:
+    config:
+      uri: "http://localhost:9101"
+      fail-fast: true

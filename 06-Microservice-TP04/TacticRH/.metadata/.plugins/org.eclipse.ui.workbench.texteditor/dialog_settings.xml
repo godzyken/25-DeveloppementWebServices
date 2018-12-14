@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="false" key="isRegEx"/>
+		<item value="" key="selection"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="true" key="wrap"/>
+		<item value="false" key="wholeword"/>
+		<list key="findhistory">
+			<item value="UtilisateurServerApplicationTest"/>
+			<item value="public List&lt;Utilisateur&gt;"/>
+			<item value="pUtilisateur"/>
+			<item value="@RequestBody Utilisateur pUtilisateur"/>
+			<item value="Utilisateur utilisateurModifie"/>
+			<item value="Utilisateur utilisateurTrouve"/>
+			<item value="List&lt;Utilisateur&gt; utilisateursTrouves"/>
+			<item value="Utilisateur utilisateurEnregistre"/>
+			<item value="public Utilisateur"/>
+		</list>
+		<list key="replacehistory">
+			<item value="public List&lt;Personne&gt;"/>
+			<item value="pPersonne"/>
+			<item value="@RequestBody Personne pPersonne"/>
+			<item value="Personne personneModifiee"/>
+			<item value="Personne personneTrouvee"/>
+			<item value="List&lt;Personne&gt; personnesTrouvees"/>
+			<item value="Personne personneEnregistree"/>
+			<item value="public Personne"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="574" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="391" key="DIALOG_HEIGHT"/>
+		<item value="709" key="DIALOG_X_ORIGIN"/>
+		<item value="245" key="DIALOG_Y_ORIGIN"/>
+	</section>
+</section>

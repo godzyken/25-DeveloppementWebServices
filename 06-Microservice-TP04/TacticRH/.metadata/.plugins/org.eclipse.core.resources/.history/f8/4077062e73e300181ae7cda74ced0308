@@ -1,0 +1,55 @@
+package fr.tacticrh.utilisateur.web.controller;
+
+import java.util.List;
+
+import fr.tacticrh.utilisateur.persistence.model.Utilisateur;
+
+/**
+ * <b>CLASSE EXPOSANT LES FONCTIONNALITES SUIVANTES :</b><br/>
+ *    -->LES FONCTIONNALITES DE NAVIGATION ET DE RECEPTION DE REQUETE HTTP.<br/>
+ *    -->TYPE D'ENTITE CONCERNEE : 'Utilisateur'
+ *    <br/>
+ */
+public interface UtilisateurController {
+
+	
+	/**
+     * <b>ENREGISTRER UNE ENTITE DU TYPE CI-DESSOUS :</b><br/>
+     *    -->TYPE D'ENTITE CONCERNEE : 'Utilisateur'
+     * 
+     * @param pUtilisateur
+     */
+	public Utilisateur enregistrer(Utilisateur pUtilisateur);
+    
+    /**
+     * <b>RECHERCHER TOUTES LES ENTITE DU TYPE CI-DESSOUS :</b><br/>
+     *    -->TYPE D'ENTITE CONCERNEE : 'Utilisateur'
+     * 
+     * @param pId
+     */
+	public List<Utilisateur> rechercherTous();
+
+    /**
+     * <b>RECHERCHER PAR ID UNE ENTITE DU TYPE CI-DESSOUS :</b><br/>
+     *    -->TYPE D'ENTITE CONCERNEE : 'Utilisateur'
+     * 
+     * @param pId
+     */
+	public Utilisateur rechercherParId(long pId);
+	
+    /**
+     * <b>MODIFIER UNE ENTITE DU TYPE CI-DESSOUS :</b><br/>
+     *    -->TYPE D'ENTITE CONCERNEE : 'Utilisateur'
+     * 
+     * @param pUtilisateur
+     */
+	public Utilisateur modifierParId(Utilisateur pUtilisateur);
+    
+    /**
+     * <b>SUPPRIMER PAR ID UNE ENTITE DU TYPE CI-DESSOUS :</b><br/>
+     *    -->TYPE D'ENTITE CONCERNEE : 'Utilisateur'
+     * 
+     * @param pId
+     */
+	public Long supprimerParId(long pId);
+}

@@ -1,0 +1,30 @@
+package fr.bc.user.service;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import fr.bc.user.bean.JoueurBean;
+import fr.tacticrh.utilisateur.web.controller.Produit;
+
+/**
+ * <b>CLASSE EXPOSANT LES FONCTIONNALITES SUIVANTES :</b><br/>
+ *    -->LES FONCTIONNALITES METIER.<br/>
+ *    -->TYPE D'ENTITE CONCERNEE : 'User'
+ *    <br/>
+ */
+public interface UserService {
+
+	
+    /**
+	 * <b>EFFECTUER L'OPERATION DE RECHERCHE CI-DESSOUS :</b><br/>
+	 * <br/>
+	 * ->(01.)CRITERE DE RECHERCHE : AUCUN.<br/> 
+	 * ->(02.)CONDITION A SATISFAIRE : AUCUNE.<br/>
+	 *    
+	 * @return List<Produit> La liste de produits trouvee.
+	 */
+    public List<Produit> rechercherTous();  
+    
+}

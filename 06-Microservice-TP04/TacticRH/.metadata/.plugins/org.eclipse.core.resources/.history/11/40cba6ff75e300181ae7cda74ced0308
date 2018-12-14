@@ -1,0 +1,98 @@
+package fr.tacticrh.utilisateur.web.controller;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import fr.tacticrh.utilisateur.business.service.UtilisateurService;
+import fr.tacticrh.utilisateur.persistence.model.Utilisateur;
+
+
+/**
+ * <b>CLASSE IMPLEMENTANT LES FONCTIONNALITES SUIVANTES :</b><br/>
+ *    -->LES FONCTIONNALITES DE NAVIGATION ET DE RECEPTION DE REQUETE HTTP.<br/>
+ *    -->TYPE D'ENTITE CONCERNEE : 'Personne'
+ *    <br/>
+ */
+@RestController
+public class PersonneControllerImpl implements UtilisateurController {
+
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(PersonneControllerImpl.class);
+
+	/**
+	 * <b>COMPOSANT METIER RELATIF A L'ENTITE CI-DESSOUS :</b><br/>
+	 * <br/>
+	 * ->ENTITE : 'Personne'.<br/> 
+	 */    
+    @Autowired
+    UtilisateurService utilisateurService;
+
+
+	@Override
+	@RequestMapping(value="/personne", method= RequestMethod.POST)
+    public Utilisateur enregistrer(@RequestBody Utilisateur pUtilisateur) {
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : enregistrer -- BEGIN");
+		
+		Utilisateur utilisateurEnregistre = this.utilisateurService.enregistrer(pUtilisateur);
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : enregistrer -- END");
+		return utilisateurEnregistre;
+	}
+
+	@Override
+	@RequestMapping(value="/personne", method= RequestMethod.GET)
+    public List<Utilisateur> rechercherTous() {
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : rechercherTous -- BEGIN");
+		
+		List<Utilisateur> utilisateursTrouves = this.utilisateurService.rechercherTous();
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : rechercherTous -- END");
+		return utilisateursTrouves;
+	}
+	
+	@Override
+	@RequestMapping(value="/utilisateur/{id}", method= RequestMethod.GET)
+    public Utilisateur rechercherParId(@PathVariable("id") long pId) {
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : rechercherParId -- BEGIN");
+		
+		Utilisateur utilisateurTrouve = this.utilisateurService.rechercherParId(pId);
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : rechercherParId -- END");
+		return utilisateurTrouve;
+	}
+
+	@Override
+	@RequestMapping(value="/personne", method= RequestMethod.PATCH)
+    public Utilisateur modifierParId(@RequestBody Utilisateur pUtilisateur) {
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : modifierParId -- BEGIN");
+		
+		Utilisateur utilisateurModifie = this.utilisateurService.modifierParId(pUtilisateur);
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : modifierParId -- END");
+		return utilisateurModifie;
+	}
+	
+	@Override
+	@RequestMapping(value="/personne", method= RequestMethod.DELETE)
+	public void supprimerParId(long pId) {
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : supprimerParId -- BEGIN");
+		
+		this.utilisateurService.supprimerParId(pId);
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : supprimerParId -- END");
+		return;
+	}
+}

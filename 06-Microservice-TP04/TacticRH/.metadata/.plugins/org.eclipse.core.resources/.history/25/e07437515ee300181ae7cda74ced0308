@@ -1,0 +1,17 @@
+package fr.bc.user.service;
+
+import fr.bc.user.bean.JoueurBean;
+
+/**
+ * <b>CLASSE EXPOSANT LES FONCTIONNALITES SUIVANTES :</b><br/>
+ *    -->LES FONCTIONNALITES METIER.<br/>
+ *    -->TYPE D'ENTITE CONCERNEE : 'User'
+ *    <br/>
+ */
+public interface UserService {
+
+	
+    public JoueurBean enregistrer(JoueurBean joueurBean);
+    
+    
+}

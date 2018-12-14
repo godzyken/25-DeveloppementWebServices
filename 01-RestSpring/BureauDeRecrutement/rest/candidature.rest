@@ -1,0 +1,47 @@
+
+
+################################################################################
+# (01.)CREATION D'UNE CANDIDATURE
+################################################################################
+POST http://localhost:8080/BureauDeRecrutement/candidature?candidatId=7
+
+
+################################################################################
+# (02.)AJOUT D'UN CURRICULUM A UNE CANDIDATURE
+################################################################################
+POST http://localhost:8080/BureauDeRecrutement/candidature/curriculum?candidatureId=7
+
+
+################################################################################
+# (03.)AJOUT D'UNE MOTIVATION A UNE CANDIDATURE
+################################################################################
+POST http://localhost:8080/BureauDeRecrutement/candidature/motivation?candidatureId=1
+
+
+################################################################################
+# (04.)RECHERCHE D'UNE LISTE DE CANDIDATURES SANS CRITERE :
+#      ->LISTE DE TOUTES LES CANDIDATURES.
+################################################################################
+GET http://localhost:8080/BureauDeRecrutement/candidature/all
+
+
+################################################################################
+# (05.)RECHERCHE D'UNE CANDIDATURE AVEC CRITERE :
+#      ->CRITERE : L'ATTRIBUT "ID" (CLE PRIMAIRE).
+#      ->VALEURS POSSIBLES : "1", "2", "3", "4"
+################################################################################
+GET http://localhost:8080/BureauDeRecrutement/candidature/id/1
+GET http://localhost:8080/BureauDeRecrutement/candidature/id/2
+GET http://localhost:8080/BureauDeRecrutement/candidature/id/3
+GET http://localhost:8080/BureauDeRecrutement/candidature/id/4
+
+
+################################################################################
+# (06.)RECHERCHE D'UNE LISTE DE CANDIDATURES AVEC CRITERE :
+#      ->CRITERE : L'ATTRIBUT "MAIL" DE L'OBJET ASSOCIE "PERSONNE".
+#      ->VALEURS POSSIBLES : "patrick.kabeya@hotmail.com", "franck.tabataba@hotmail.com", "tcharou.dalgalian@hotmail.com", "didier.bono@gmail.fr"
+################################################################################
+GET http://localhost:8080/BureauDeRecrutement/candidature/personne/mail?personneMail=patrick.kabeya@hotmail.com
+GET http://localhost:8080/BureauDeRecrutement/candidature/personne/mail?personneMail=franck.tabataba@hotmail.com
+GET http://localhost:8080/BureauDeRecrutement/candidature/personne/mail?personneMail=tcharou.dalgalian@hotmail.com
+GET http://localhost:8080/BureauDeRecrutement/candidature/personne/mail?personneMail=didier.bono@gmail.fr

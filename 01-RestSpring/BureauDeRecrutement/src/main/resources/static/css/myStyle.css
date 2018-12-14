@@ -1,0 +1,32 @@
+@CHARSET "UTF-8";
+
+
+
+/* STYLE FOR BODY */
+.body {
+    background-color: #F7E8CA;
+}
+
+/* STYLE FOR TITLE-TEXTS */
+.panel-heading {
+	background-color: #F7E8CA;
+	text-align: center;
+    font-family: tahoma;
+    color: black;
+    font-weight: bold;
+    font-size: medium;
+}
+
+/* STYLE FOR ANNOUNCEMENT-TEXTS */
+.panel-announcement {
+	background-color: #F7E8CA;
+	text-align: center;
+    font-family: tahoma;
+    color: blue;
+    font-weight: bold;
+    font-size: small;
+}
+
+.ecartVertical80 {
+	margin-top:40px
+}

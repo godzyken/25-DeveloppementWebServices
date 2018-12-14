@@ -1,0 +1,29 @@
+
+
+################################################################################
+# (01.)CREATION D'UN MANAGER
+################################################################################
+POST http://localhost:8080/BureauDeRecrutement/manager
+
+
+################################################################################
+# (02.)RECHERCHE D'UNE LISTE DE CANDIDATS SANS CRITERE :
+#      ->LISTE DE TOUS LES MANAGERS.
+################################################################################
+GET http://localhost:8080/BureauDeRecrutement/manager/all
+
+
+################################################################################
+# (03.)RECHERCHE D'UN MANAGER AVEC CRITERE :
+#      ->CRITERE : L'ATTRIBUT "ID" (CLE PRIMAIRE).
+#      ->VALEURS POSSIBLES : "4"
+################################################################################
+GET http://localhost:8080/BureauDeRecrutement/manager/id/4
+
+
+################################################################################
+# (04.)RECHERCHE D'UNE LISTE DE MANAGERS AVEC CRITERE :
+#      ->CRITERE : L'ATTRIBUT "MAIL".
+#      ->VALEURS POSSIBLES : "ghislain.degestas@hotmail.com"
+################################################################################
+GET http://localhost:8080/BureauDeRecrutement/manager/mail?personneMail=ghislain.degestas@hotmail.com

@@ -1,0 +1,55 @@
+1541677014742	Rename type 'User'
+1541679411436	Rename field 'mdp'
+1541679429552	Rename local variable 'pMdp'
+1541679447725	Rename local variable 'pMdp'
+1541679511487	Rename method 'getMdp'
+1541679530798	Rename field 'email'
+1541679541688	Rename local variable 'pEmail'
+1541679551320	Rename local variable 'pEmail'
+1541679564028	Rename method 'getEmail'
+1541679616256	Rename method 'setEmail'
+1541679634877	Rename method 'setMdp'
+1541679663975	Rename local variable 'pEmail'
+1541679689996	Rename local variable 'pMdp'
+1541680060494	Rename field 'users'
+1541680319984	Delete element
+1541680337777	Rename type 'ProduitDao'
+1541680413342	Copy compilation unit
+1541680452488	Copy compilation unit
+1541681832481	Rename type 'ProduitNotFoundException'
+1541681869851	Copy compilation unit
+1541681937746	Copy compilation unit
+1541681980952	Copy compilation unit
+1541682029990	Copy compilation unit
+1541682072957	Copy compilation unit
+1541682482810	Rename package 'fr.tacticrh.utilisateur.business.service.UtilisateurService'
+1541687805435	Rename field 'ERROR__PRODUIT_FIND_BY_ID__NOT_FOUND'
+1541688223492	Copy compilation unit
+1541689469030	Copy compilation unit
+1541689634725	Rename field 'ERROR__UTILISATEUR_DELETE_BY_ID__ID_NOT_VALID'
+1541689790770	Copy compilation unit
+1541689943553	Delete element
+1541689957504	Copy compilation unit
+1541690652749	Copy compilation unit
+1541690819524	Rename local variable 'utilisateurCreated'
+1541691022409	Rename local variable 'utilisateurs'
+1541691094795	Rename local variable 'utilisateurOptional'
+1541691194650	Copy compilation unit
+1541691224583	Rename local variable 'utilisateurUpdated'
+1541691281660	Copy compilation unit
+1541691333723	Rename field 'ERROR__UTILISATEUR_CREATE__NOT_VALID'
+1541691346220	Rename field 'ERROR__UTILISATEUR_FIND_ALL__NOT_AVAILABLE'
+1541691355803	Rename field 'ERROR__UTILISATEUR_FIND_BY_ID__NOT_FOUND'
+1541691365538	Rename field 'ERROR__UTILISATEUR_UPDATE_BY_ID__NOT_VALID'
+1541691375152	Rename field 'ERROR__UTILISATEUR_DELETE_BY_ID__NOT_VALID'
+1541691861699	Delete element
+1541691866156	Delete element
+1541691901223	Delete element
+1541691906093	Delete element
+1541692911277	Rename type 'UserController'
+1541693407147	Rename type 'UserControllerImpl'
+1541695135187	Copy compilation unit
+1541695142783	Delete element
+1541695464498	Copy compilation unit
+1541695669488	Rename field 'utilisateurService'
+1541696872518	Rename package 'fr.tacticrh.utilisateur.dao'

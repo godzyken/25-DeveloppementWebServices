@@ -1,0 +1,121 @@
+@CHARSET "ISO-8859-1";
+
+
+
+
+/* STYLE FOR BODY */
+.body {
+    background-color: #F7E8CA;
+}
+
+
+/* STYLE FOR TITLE-TEXTS */
+.titleText {
+	background-color: #F7E8CA;
+	text-align: center;
+    font-family: tahoma;
+    color: black;
+    font-weight: bold;
+    font-size: medium;
+}
+
+
+/* STYLE FOR ANNOUNCEMENT-TEXTS */
+.announcementText {
+	text-align: center;
+    font-family: tahoma;
+    color: blue;
+    font-weight: bold;
+    font-size: small;
+}
+
+
+/* STYLE FOR VERTICAL-LABEL-TEXTS */
+.verticalLabelText {
+	text-align: center;
+    font-family: tahoma;
+    color: black;
+    font-weight: normal;
+    font-size: small;
+}
+
+
+/* STYLE FOR HORIZONTAL-LABEL-TEXTS */
+.horizontalLabelText {
+	text-align: left;
+    font-family: tahoma;
+    color: black;
+    font-weight: normal;
+    font-size: small;
+}
+
+
+/* STYLE FOR INPUT-FIELDS */
+.inputField {
+	text-align: left;
+}
+
+
+/* STYLE FOR ANNOUNCEMENT-INPUT-FIELDS */
+.announcementInputField {
+	text-align: center;
+}
+
+
+/* STYLE FOR WRITE-INPUT-FIELD-TEXTS */
+.writeInputFieldText {
+	background-color: white;
+	text-align: left;
+    font-family: tahoma;
+    color: black;
+    font-weight: normal;
+    font-size: small;
+}
+
+
+/* STYLE FOR READ-INPUT-FIELD-TEXTS */
+.readInputFieldText {
+	background-color: #F7E8CA;
+	text-align: left;
+    font-family: tahoma;
+    color: black;
+    font-weight: normal;
+    font-size: small;
+}
+
+
+/* STYLE FOR ANNOUNCEMENT-INPUT-FIELD-TEXTS */
+.announcementInputFieldText {
+	background-color: #F7E8CA;
+	text-align: center;
+    font-family: tahoma;
+    color: blue;
+    font-weight: bold;
+    font-size: small;
+}
+
+
+/* STYLE FOR BUTTONS */
+.button {
+	text-align: center;
+}
+
+
+/* STYLE FOR BUTTON-TEXTS */
+.buttonText {
+	text-align: center;
+    font-family: tahoma;
+    color: black;
+    font-weight: bold;
+    font-size: small;
+}
+
+
+/* STYLE FOR ERROR-TEXTS */
+.errorText {
+	text-align: left;
+    font-family: tahoma;
+    color: red;
+    font-weight: bold;
+    font-size: small;
+}

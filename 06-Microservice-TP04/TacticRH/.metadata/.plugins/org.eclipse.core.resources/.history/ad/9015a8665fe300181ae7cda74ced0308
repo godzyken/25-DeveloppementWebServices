@@ -1,0 +1,78 @@
+package fr.tacticrh.utilisateur.business.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import fr.tacticrh.utilisateur.business.exception.UtilisateurNotFoundException;
+import fr.tacticrh.utilisateur.persistence.model.Utilisateur;
+import fr.tacticrh.utilisateur.web.controller.Produit;
+
+public interface UtilisateurService {
+
+	
+	/**
+	 * <b>EFFECTUER L'OPERATION DE CREATION CI-DESSOUS :</b><br/>
+	 * <br/>
+	 * ->(01.)ENTITE RECHERCHEE : 'Utilisateur'.<br/> 
+	 * ->(02.)CRITERE DE RECHERCHE : L'ATTRIBUT 'id'.<br/> 
+	 * ->(03.)CONDITION A SATISFAIRE : L'ATTRIBUT 'id' EST EGAL A LA VALEUR FOURNIE.<br/>
+	 *    
+	 * @param pId L'attribut 'id' de l'objet 'Utilisateur' a rechercher.
+
+	 * @return Optional<Utilisateur> L'objet 'Utilisateur' trouve.
+	 */
+    public Optional<Utilisateur> enregistrer(Utilisateur pUtilisateur);
+
+	
+    /**
+	 * <b>EFFECTUER L'OPERATION DE RECHERCHE CI-DESSOUS :</b><br/>
+	 * <br/>
+	 * ->(01.)ENTITE RECHERCHEE : 'Utilisateur'.<br/> 
+	 * ->(02.)CRITERE DE RECHERCHE : AUCUN.<br/> 
+	 * ->(03.)CONDITION A SATISFAIRE : AUCUNE.<br/>
+	 *    
+	 * @return List<Utilisateur> La liste d'utilisateurs trouves.
+	 */
+    public List<Utilisateur> rechercherTous();
+
+	/**
+	 * <b>EFFECTUER L'OPERATION DE RECHERCHE CI-DESSOUS :</b><br/>
+	 * <br/>
+	 * ->(01.)ENTITE RECHERCHEE : 'Utilisateur'.<br/> 
+	 * ->(02.)CRITERE DE RECHERCHE : L'ATTRIBUT 'id'.<br/> 
+	 * ->(03.)CONDITION A SATISFAIRE : L'ATTRIBUT 'id' EST EGAL A LA VALEUR FOURNIE.<br/>
+	 *    
+	 * @param pId L'attribut 'id' de l'objet 'Utilisateur' a rechercher.
+
+	 * @return Optional<Utilisateur> L'objet 'Utilisateur' trouve.
+	 */
+    public Optional<Utilisateur> rechercherParId(Long pId);
+    
+	/**
+	 * <b>EFFECTUER L'OPERATION DE MODIFICATION CI-DESSOUS :</b><br/>
+	 * <br/>
+	 * ->(01.)CRITERE DE RECHERCHE : L'ATTRIBUT 'id'.<br/> 
+	 * ->(02.)CONDITION A SATISFAIRE : L'ATTRIBUT 'id' EST EGAL A LA VALEUR FOURNIE.<br/>
+	 *    
+	 * @param pId L'attribut 'id' de l'objet 'Produit' a rechercher.
+	 * @return Optional<Utilisateur> L'entité modifiée (type : 'Utilisateur').
+	 */
+    public Optional<Utilisateur> modifierParId(Utilisateur pUtilisateur);
+    
+	/**
+	 * <b>EFFECTUER L'OPERATION DE SUPPRESSION CI-DESSOUS :</b><br/>
+	 * <br/>
+	 * ->(01.)ENTITE RECHERCHEE : 'Utilisateur'.<br/> 
+	 * ->(02.)CRITERE DE RECHERCHE : L'ATTRIBUT 'id'.<br/> 
+	 * ->(03.)CONDITION A SATISFAIRE : L'ATTRIBUT 'id' EST EGAL A LA VALEUR FOURNIE.<br/>
+	 *    
+	 * @param pId L'attribut 'id' de l'entité a rechercher (type : utilisateur).
+
+	 * @return Long L'attribut 'id' de l'entité supprimée (type : 'Utilisateur').
+	 */
+    public Long supprimerParId(Long pId);
+}

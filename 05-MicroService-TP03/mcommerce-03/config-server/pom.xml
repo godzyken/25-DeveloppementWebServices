@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- ========================================================= -->
+	<!-- (01.)Informations sur le parent du projet -->
+	<!-- ========================================================= -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.4.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<!-- ========================================================= -->
+	<!-- (02.)Informations sur le projet -->
+	<!-- ========================================================= -->
+	<!-- ===== (02.01.)Informations d'identification du projet ===== -->
+	<groupId>com.mcommerce</groupId>
+	<artifactId>config-server</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<!-- ===== (02.02.)Informations generales ===== -->
+	<name>config-server</name>
+	<description>Demo project for Spring Boot</description>
+
+	<!-- ========================================================= -->
+	<!-- (03.)Proprietes du projet -->
+	<!-- ========================================================= -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<spring-cloud.version>Finchley.SR1</spring-cloud.version>
+	</properties>
+
+	<!-- =============================================================== -->
+	<!-- (04.)Dependances du projet -->
+	<!-- =============================================================== -->
+	<dependencies>
+		<!-- =============================================================== -->
+		<!-- ====== (04.01.)Connecteurs de BDD ============================= -->
+		<!-- =============================================================== -->
+		<!-- Connecteur JDBC pour MYSQL -->
+		<!-- dependency -->
+			<!-- groupId>mysql</groupId -->
+			<!-- artifactId>mysql-connector-java</artifactId -->
+		<!-- /dependency -->
+		
+		<!--<dependency>-->
+			<!--<groupId>org.mariadb.jdbc</groupId>-->
+			<!--<artifactId>mariadb-java-client</artifactId>-->
+		<!--</dependency>-->
+	
+		<!-- =============================================================== -->
+		<!-- ====== (04.02.)Spring-BOOT ==================================== -->
+		<!-- =============================================================== -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+		
+		<!-- =============================================================== -->
+		<!-- ====== (04.03.)Spring-CLOUD =================================== -->
+		<!-- =============================================================== -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-server</artifactId>
+		</dependency>
+	</dependencies>
+
+	<!-- =============================================================== -->
+	<!-- ====== (05.)Management des dependances du projet ============== -->
+	<!-- =============================================================== -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<!-- ============================================================= -->
+	<!-- (06.)Construction de l'executable du projet -->
+	<!-- ============================================================= -->
+	<build>
+		<!-- ========================================================= -->
+		<!-- (06.01.)Nom du fichier executable -->
+		<!-- ========================================================= -->
+		<finalName>configServer</finalName>
+		
+		<!-- ========================================================= -->
+		<!-- (06.02.)Plugins -->
+		<!-- ========================================================= -->
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>

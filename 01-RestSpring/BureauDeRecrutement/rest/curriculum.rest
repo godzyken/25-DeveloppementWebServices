@@ -1,0 +1,36 @@
+
+
+################################################################################
+# (01.)CREATION D'UN CURRICULUM
+################################################################################
+POST http://localhost:8080/BureauDeRecrutement/curriculum?candidatureId=6
+POST http://localhost:8080/BureauDeRecrutement/curriculum?candidatureId=7
+
+
+################################################################################
+# (02.)RECHERCHE D'UNE LISTE DE CURRICULUMS SANS CRITERE :
+#      ->LISTE DE TOUS LES CURRICULUMS.
+################################################################################
+GET http://localhost:8080/BureauDeRecrutement/curriculum/all
+
+
+################################################################################
+# (03.)RECHERCHE D'UN CURRICULUM AVEC CRITERE :
+#      ->CRITERE : L'ATTRIBUT "ID" (CLE PRIMAIRE).
+#      ->VALEURS POSSIBLES : "1", "2", "3", "4"
+################################################################################
+GET http://localhost:8080/BureauDeRecrutement/curriculum/id/1
+GET http://localhost:8080/BureauDeRecrutement/curriculum/id/2
+GET http://localhost:8080/BureauDeRecrutement/curriculum/id/3
+GET http://localhost:8080/BureauDeRecrutement/curriculum/id/4
+
+
+################################################################################
+# (04.)RECHERCHE D'UNE LISTE DE CURRICULUMS AVEC CRITERE :
+#      ->CRITERE : L'ATTRIBUT "ID" DE L'OBJET ASSOCIE "CANDIDATURE".
+#      ->VALEURS POSSIBLES : "1", "2", "3", "4"
+################################################################################
+GET http://localhost:8080/BureauDeRecrutement/curriculum/candidature/id/1
+GET http://localhost:8080/BureauDeRecrutement/curriculum/candidature/id/2
+GET http://localhost:8080/BureauDeRecrutement/curriculum/candidature/id/3
+GET http://localhost:8080/BureauDeRecrutement/curriculum/candidature/id/4

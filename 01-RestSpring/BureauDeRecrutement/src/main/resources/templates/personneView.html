@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorator="template1">
+		
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Votre bureau de recrutement</title>
+	</head>
+	<body class="body">
+		<div layout:fragment="content">
+			<h5>Votre bureau de recrutement vous souhaite la bienvenue !...</h5>
+			<div class="col-md-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading">Consultation de votre compte</div>
+					<div class="panel-body">
+						<form th:action="@{/banque/rechercherCompte}" method="get">
+							<div class="panel-announcement">Veuillez saisir votre code de compte, svp :</div>
+							<div>
+								<label>Code :</label>
+								<input type="text" name="pCompteCode"/>
+								<button type="submit" class="btn-primary">OK</button>
+							</div>
+						</form>
+						<div class="text-danger" th:if="${rechercherCompteException}" th:text="${rechercherCompteException.message}"></div>
+					</div>
+				</div>
+				
+				<div class="panel panel-primary" th:if="${compte}">
+					<div class="panel-heading">Informations sur votre compte</div>
+					<div class="panel-body">
+						<div class="panel-announcement">Vous pouvez consulter les détails de votre compte :</div>
+						<div>
+							<label>Code :</label>
+							<label th:text="${compte.code}"></label>
+						</div>
+						<div>
+							<label>Type :</label>
+							<label th:text="${compte.class.simpleName}"></label>
+						</div>
+						<div>
+							<label>Solde :</label>
+							<label th:text="${compte.solde}"></label>
+						</div>
+						<div>
+							<label>Date de création :</label>
+							<label th:text="${compte.dateCreation}"></label>
+						</div>
+						<div th:if="${compte.class.simpleName=='CompteCourant'}">
+							<label>Découvert :</label>
+							<label th:text="${compte.decouvert}"></label>
+						</div>
+						<div th:if="${compte.class.simpleName=='CompteEpargne'}">
+							<label>Taux :</label>
+							<label th:text="${compte.taux}"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-6">
+				<div class="panel panel-primary" th:if="${compte}">
+					<div class="panel-heading">Operation sur votre compte</div>
+					<div class="panel-body">
+						<form th:action="@{/banque/creerOperation}">
+							<div class="panel-announcement">Vous pouvez effectuer une opération sur votre compte :</div>
+							<div>
+								<label>Compte : </label>
+								<label th:text="${compteCode}"></label>
+								<input type="hidden" name="pCompteCode" th:value="${compteCode}"/>
+							</div>
+							<div>
+								<input type="radio" name="pOperationType" value="VERSEMENT" onclick="document.getElementById('compteDestinataireDiv').style.display ='none'" checked="checked"/>
+								<label>Versement</label>
+								<input type="radio" name="pOperationType" value="RETRAIT" onclick="document.getElementById('compteDestinataireDiv').style.display ='none'"/>
+								<label>Retrait</label>
+								<input type="radio" name="pOperationType" value="VIREMENT" onclick="document.getElementById('compteDestinataireDiv').style.display ='block'"/>
+								<label>Virement</label>
+							</div>
+							<div>
+								<label>Montant</label>
+								<input type="text" name="pMontant"/>
+							</div>
+							<div id="compteDestinataireDiv" style="display:none">
+								<label>Compte destinataire :</label>
+								<input type="text" name="pCompteCodeDestinataire"/>
+							</div>
+							<div class="text-danger" th:text="${#httpServletRequest.getParameter('pError')}"></div>
+							<button type="submit" class="btn btn-primary">OK</button>
+						</form>
+					</div>
+				</div>
+				
+				<div class="panel panel-primary" th:if="${compte}">
+					<div class="panel-heading">Liste des operations sur votre compte</div>
+					<div class="panel-body">
+						<div class="panel-announcement">Vous pouvez consulter les opérations sur votre compte :</div>
+						<table class="table table-stripped">
+							<tr>
+								<th>Numero</th>
+								<th>Type</th>
+								<th>Date</th>
+								<th>Montant</th>
+							</tr>
+							<tr th:each="operation : ${operations}">
+								<td th:text="${operation.numero}"></td>
+								<td th:text="${operation.class.simpleName}"></td>
+								<td th:text="${operation.date}"></td>
+								<td th:text="${operation.montant}"></td>
+							</tr>
+						</table>
+						<div class="container">
+							<ul class="nav nav-pills">
+								<li th:each="p, status:${pageNumbers}">
+									<a th:href="@{/banque/rechercherCompte(pCompteCode=${compteCode}, pPageNumber=${status.index})}" th:text="${status.index}" ></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

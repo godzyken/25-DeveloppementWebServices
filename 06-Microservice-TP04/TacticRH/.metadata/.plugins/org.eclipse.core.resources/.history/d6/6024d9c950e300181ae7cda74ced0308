@@ -1,0 +1,110 @@
+package fr.tacticrh.utilisateur.persistence.model;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+
+import javax.persistence.*;
+import java.io.Serializable;
+
+/**
+ * <b>ENTITE DU MODELE CONCEPTUEL DE DONNEES DE L'APPLICATION</b><br/>
+ *    ENTITE : User<br/>
+ *    <br/>
+ * @author 1603599
+ */
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "USER_TYPE", discriminatorType = DiscriminatorType.STRING, length = 1)
+@Entity
+public class Utilisateur implements Serializable {
+
+	
+	@Transient
+	private static final long serialVersionUID = 1L;
+
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String mail;
+
+    @Column(nullable = false, unique = true)
+    private String motDePasse;
+
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JsonBackReference
+    private Role role;
+
+    
+    /**
+     * <b>CONSTRUCTEUR AVEC LES ARGUMENTS : AUCUN</b><br/>
+     * <br/>
+     */
+    public Utilisateur() {
+    }
+
+    
+    /**
+     * <b>CONSTRUCTEUR AVEC LES ARGUMENTS : TOUS LES ATTRIBUTS</b><br/>
+     * <br/>
+     * @param pId
+     * @param pMail
+     * @param pMotDePasse
+     * @param pRole
+     */
+    public Utilisateur(Long pId, String pMail, String pMotDePasse, Role pRole) {
+
+        this.id = pId;
+    	this.mail = pMail;
+        this.motDePasse = pMotDePasse;
+        this.role = pRole;
+    }
+
+    /**
+     * <b>CONSTRUCTEUR AVEC LES ARGUMENTS : TOUS LES ATTRIBUTS SAUF L'ID</b><br/>
+     * <br/>
+     * @param pMail
+     * @param pMotDePasse
+     * @param pRole
+     */
+    public Utilisateur(String pMail, String pMotDePasse, Role pRole) {
+    	
+        this.mail = pMail;
+        this.motDePasse   = pMotDePasse;
+        this.role  = pRole;
+    }
+    
+    /**
+     * <b>CONSTRUCTEUR DE RECOPIE</b><br/>
+     * <br/>
+     * @param pUser
+     */
+    public Utilisateur(Utilisateur pUser) {
+    	
+        this.id    = pUser.getId();
+        this.mail = pUser.getMail();
+        this.motDePasse   = pUser.getMotDePasse();
+        this.role  = pUser.getRole();
+    }
+    
+    
+    public Long   getId         () { return this.id;         }
+    public String getMail       () { return this.mail;       }
+    public String getMotDePasse () { return this.motDePasse; }
+    public Role   getRole       () { return this.role;       }
+
+    public void setId         (Long   pId   ) { this.id    = pId;    }
+    public void setMail       (String pMail) { this.mail = pMail; }
+    public void setMotDePasse (String pMotDePassethis.motDePasse   = pMdp; pMotDePasseublic void setRole       (Role   pRole ) { this.role  = pRole;  }
+
+    
+    @Override
+    public String toString() {
+        return "User {"
+	                	   + "id"    + "='" + this.id    + "'"
+	                + ", " + "email" + "='" + this.mail + "'"
+	                + ", " + "mdp"   + "='" + this.motDePasse   + "'"
+	                + ", " + "role"  + "="  + this.role.toString()
+	                + "}";
+    }
+}

@@ -1,0 +1,688 @@
+package fr.afpa.persistence.dao;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.stereotype.Component;
+
+import fr.afpa.model.entity.Droit;
+import fr.afpa.model.entity.Personne;
+import fr.afpa.model.entity.Utilisateur;
+
+import fr.afpa.persistence.dao.IDroitDao;
+import fr.afpa.persistence.dao.IPersonneDao;
+import fr.afpa.persistence.dao.IUtilisateurDao;
+
+/**
+ * <b>CLASSE QUI IMPLEMENTE LES FONCTIONNALITES SUIVANTES : <b><br/>
+ * ->L'ENSEMBLE DES TESTS SUR LES DAO DE L'APPLICATION.<br/>
+ * 
+ * @author chat_roux
+ */
+@EnableJpaRepositories(basePackages = { "fr.afpa.persistence.dao" })
+@Component
+public class DaoTest {
+
+
+	/**
+	 * <b>OBJET QUI POSSEDE LES FONCTIONNALITES SUIVANTES : </b> <br/>
+	 * Les fonctionnalites d'ecriture de messages de log dans la console.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(DaoTest.class);
+	
+	
+	private IDroitDao droitDao;
+	private IPersonneDao personneDao;
+	private IUtilisateurDao utilisateurDao;
+
+	
+	/**
+	 * <b>CONSTRUCTEUR AVEC ARGUMENTS.</b><br/>
+	 *
+	 * @param pDroitDao The parameter of type 'DroitDao'
+	 * @param pPersonneDao The parameter of type 'PersonneDao'
+	 * @param pUtilisateurDao The parameter of type 'UtilisateurDao'
+	 */
+	@Autowired
+	public DaoTest(IDroitDao pDroitDao, IPersonneDao pPersonneDao, IUtilisateurDao pUtilisateurDao) {
+		
+		DaoTest.LOGGER.info( "+----------+-----------------------------------------+");
+		DaoTest.LOGGER.info( "| MODULE   | GestionDUtilisateurs-03-persistence     |");
+		DaoTest.LOGGER.info( "| CLASSE   | DaoTest                                 |");
+		DaoTest.LOGGER.info( "| METHODE  | DaoTest                                 |");
+		DaoTest.LOGGER.info( "| POSITION | DEBUT                                   |");
+		DaoTest.LOGGER.info( "+----------+-----------------------------------------+");
+
+		this.droitDao = pDroitDao;
+		this.personneDao = pPersonneDao;
+		this.utilisateurDao = pUtilisateurDao;
+		
+		DaoTest.LOGGER.info( "+----------+-----------------------------------------+");
+		DaoTest.LOGGER.info( "| MODULE   | GestionDUtilisateurs-03-persistence     |");
+		DaoTest.LOGGER.info( "| CLASSE   | DaoTest                                 |");
+		DaoTest.LOGGER.info( "| METHODE  | DaoTest                                 |");
+		DaoTest.LOGGER.info( "| POSITION | FIN                                     |");
+		DaoTest.LOGGER.info( "+----------+-----------------------------------------+");
+	}
+
+	 
+	/**
+	 * <b>EXECUTER LES TESTS SUR LES DAO DE L'APPLICATION.</b>
+	 */
+	//@Test
+	public void allTests() {
+
+		DaoTest.LOGGER.info( "+----------+-----------------------------------------+");
+		DaoTest.LOGGER.info( "| MODULE   | GestionDUtilisateurs-03-persistence     |");
+		DaoTest.LOGGER.info( "| CLASSE   | DaoTest                                 |");
+		DaoTest.LOGGER.info( "| METHODE  | allTests                                |");
+		DaoTest.LOGGER.info( "| POSITION | DEBUT                                   |");
+		DaoTest.LOGGER.info( "+----------+-----------------------------------------+");
+
+		this.creerObjets();
+		this.rechercherAssocierUtilisateursAvecDroits();
+		this.rechercherAssocierUtilisateursAvecPersonnes();
+		
+		DaoTest.LOGGER.info( "+----------+-----------------------------------------+");
+		DaoTest.LOGGER.info( "| MODULE   | GestionDUtilisateurs-03-persistence     |");
+		DaoTest.LOGGER.info( "| CLASSE   | DaoTest                                 |");
+		DaoTest.LOGGER.info( "| METHODE  | allTests                                |");
+		DaoTest.LOGGER.info( "| POSITION | FIN                                     |");
+		DaoTest.LOGGER.info( "+----------+-----------------------------------------+");
+	}
+
+	/**
+	 * <b>EFFECTUER LES OPERATIONS SUIVANTES SUR LES OBJETS METIER (ENTITES) : </b><br/>
+	 * <br/>
+	 *    (01.)CREER LES OBJETS METIERS.<br/>
+	 *    (02.)INSERER EN BDD LES OBJETS METIERS.<br/>
+	 */
+	private void creerObjets() {
+		
+		DaoTest.LOGGER.info( "+----------+-----------------------------------------+");
+		DaoTest.LOGGER.info( "| MODULE   | GestionDUtilisateurs-03-persistence     |");
+		DaoTest.LOGGER.info( "| CLASSE   | DaoTest                                 |");
+		DaoTest.LOGGER.info( "| METHODE  | creerObjets                             |");
+		DaoTest.LOGGER.info( "| POSITION | DEBUT                                   |");
+		DaoTest.LOGGER.info( "+----------+-----------------------------------------+");
+
+		////////////////////////////////////////////////////////////////////////
+		// (01.)CREER LES OBJETS METIER (ENTITES).
+		//
+		//      ->LES DROITS
+		//      ->LES PERSONNES
+		//      ->LES UTILISATEURS
+		////////////////////////////////////////////////////////////////////////
+		DaoTest.LOGGER.info("+------------------------------------------------------------+");
+		DaoTest.LOGGER.info("|                 (01.)CREER LES OBJETS :                    |");
+		DaoTest.LOGGER.info("+------------------------------------------------------------+");
+		
+		List<Droit>       droitsCreated       = this.creerDroits();
+		List<Personne>    personnesCreated    = this.creerPersonnes();
+		List<Utilisateur> utilisateursCreated = this.creerUtilisateurs();
+		
+		////////////////////////////////////////////////////////////////////////
+		// (02.)SAUVEGARDER EN BDD LES OBJETS CREES (ENTITES).
+		//
+		//      ->LES DROITS
+		//      ->LES PERSONNES
+		//      ->LES UTILISATEURS
+		////////////////////////////////////////////////////////////////////////
+		DaoTest.LOGGER.info("+------------------------------------------------------------+");
+		DaoTest.LOGGER.info("|                 (02.)SAUVEGARDER EN BDD LES OBJETS CREES : |");
+		DaoTest.LOGGER.info("+------------------------------------------------------------+");
+
+		List<Droit>       droitsSaved       = this.sauvegarderDroits (droitsCreated);
+		List<Personne>    personnesSaved    = this.sauvegarderPersonnes (personnesCreated);
+		List<Utilisateur> utilisateursSaved = this.sauvegarderUtilisateurs (utilisateursCreated);
+
+		////////////////////////////////////////////////////////////////////////
+		// (03.)AFFICHER LES OBJETS CREES (ENTITES).
+		//
+		//      ->LES DROITS
+		//      ->LES PERSONNES
+		//      ->LES UTILISATEURS
+		////////////////////////////////////////////////////////////////////////
+		DaoTest.LOGGER.info("+------------------------------------------------------------+");
+		DaoTest.LOGGER.info("|                 (03.)AFFICHER LES OBJETS CREES :           |");
+		DaoTest.LOGGER.info("+------------------------------------------------------------+");
+
+		this.afficherDroits (droitsSaved);
+		this.afficherPersonnes (personnesSaved);
+		this.afficherUtilisateurs (utilisateursSaved);
+		
+		DaoTest.LOGGER.info( "+----------+-----------------------------------------+");
+		DaoTest.LOGGER.info( "| MODULE   | GestionDUtilisateurs-03-persistence     |");
+		DaoTest.LOGGER.info( "| CLASSE   | DaoTest                                 |");
+		DaoTest.LOGGER.info( "| METHODE  | creerObjets                             |");
+		DaoTest.LOGGER.info( "| POSITION | FIN                                     |");
+		DaoTest.LOGGER.info( "+----------+-----------------------------------------+");
+	}
+	
+	/**
+	 * <b>EFFECTUER LES OPERATIONS SUIVANTES SUR LES OBJETS METIER (ENTITES) : </b><br/>
+	 * <br/>
+	 *    (01.)RECHERCHER EN BDD LES OBJETS METIERS INDIQUES.<br/>
+	 *    (02.)CREER DES ASSOCIATIONS ENTRE LES OBJETS METIERS INDIQUES.<br/>
+	 *    (03.)SAUVEGARDER EN BDD LES ASSOCIATIONS CREEES.<br/>
+	 *    (04.)OBJETS METIERS A TRAITER : 'UTILISATEUR' ET 'DROIT'.<br/>
+	 */
+	private void rechercherAssocierUtilisateursAvecDroits() {
+		
+		DaoTest.LOGGER.info( "+----------+------------------------------------------+");
+		DaoTest.LOGGER.info( "| MODULE   | GestionDUtilisateurs-03-persistence      |");
+		DaoTest.LOGGER.info( "| CLASSE   | DaoTest                                  |");
+		DaoTest.LOGGER.info( "| METHODE  | rechercherAssocierUtilisateursAvecDroits |");
+		DaoTest.LOGGER.info( "| POSITION | DEBUT                                    |");
+		DaoTest.LOGGER.info( "+----------+------------------------------------------+");
+
+		////////////////////////////////////////////////////////////////////////
+		// (01.)RECHERCHER DES OBJETS METIER DES TYPES CI-DESSOUS :
+		//
+		//      -> LES DROITS       (CRITERE : LE LIBELLE   ).
+		//      -> LES UTILISATEURS (CRITERE : L'IDENTIFIANT).
+		////////////////////////////////////////////////////////////////////////
+		DaoTest.LOGGER.info("+-------------------------------------------------------------------------+");
+		DaoTest.LOGGER.info("|                 (01.)RECHERCHER EN BDD LES OBJETS A ASSOCIER :          |");
+		DaoTest.LOGGER.info("+-------------------------------------------------------------------------+");
+		
+		Droit droitUti = this.droitDao.findByLibelle("Utilisateur");
+
+		Utilisateur utilisateurJJP = this.utilisateurDao.findByIdentifiant("jean-jacques.pagan");
+		Utilisateur utilisateurABA = this.utilisateurDao.findByIdentifiant("amine.bachri"      );
+		Utilisateur utilisateurTDA = this.utilisateurDao.findByIdentifiant("tcharou.dalgalian" );
+		Utilisateur utilisateurYDH = this.utilisateurDao.findByIdentifiant("yves.de-Hanot"     );
+		
+		////////////////////////////////////////////////////////////////////////
+		// (02.)ASSOCIER LES OBJETS ENTRE EUX :
+		//      (EN PRENANT UN OBJET DE CHACUN DES TYPES CI-DESSOUS)
+		//
+		//      -> LE TYPE 'UTILISATEUR'
+		//      -> LE TYPE 'DROIT'
+		////////////////////////////////////////////////////////////////////////
+		DaoTest.LOGGER.info("+-------------------------------------------------------------------------+");
+		DaoTest.LOGGER.info("|                 (02.)ASSOCIER DES OBJETS LES UNS AUX AUTRES :           |");
+		DaoTest.LOGGER.info("+-------------------------------------------------------------------------+");
+		
+		utilisateurJJP.setDroit (droitUti);
+		utilisateurABA.setDroit (droitUti);
+		utilisateurTDA.setDroit (droitUti);
+		utilisateurYDH.setDroit (droitUti);
+		
+		// utilisateurABO.setDroit (droitUti);
+		// utilisateurMDR.setDroit (droitUti);
+		// utilisateurFDE.setDroit (droitUti);
+		// utilisateurEDO.setDroit (droitUti);
+		
+		// utilisateurGDU.setDroit (droitUti);
+		// utilisateurNEF.setDroit (droitUti);
+		// utilisateurKFL.setDroit (droitUti);
+		// utilisateurTGA.setDroit (droitUti);
+		
+		// utilisateurBLA.setDroit (droitUti);
+		// utilisateurGMA.setDroit (droitUti);
+		// utilisateurAMA.setDroit (droitUti);
+		// utilisateurAMO.setDroit (droitUti);
+		
+		// utilisateurCPL.setDroit (droitUti);
+		// utilisateurDRA.setDroit (droitUti);
+		// utilisateurMSA.setDroit (droitUti);
+		// utilisateurGSI.setDroit (droitUti);
+		
+		// utilisateurLVU.setDroit (droitUti);
+		
+		////////////////////////////////////////////////////////////////////////
+		// (03.)SAUVEGARDER EN BDD LES ASSOCIATIONS ENTRE 'UTILISATEUR' ET 'DROIT'.
+		////////////////////////////////////////////////////////////////////////
+		DaoTest.LOGGER.info("+-------------------------------------------------------------------------+");
+		DaoTest.LOGGER.info("|                 (03.)SAUVEGARDER EN BDD LES ASSOCIATIONS ENTRE OBJETS : |");
+		DaoTest.LOGGER.info("+-------------------------------------------------------------------------+");
+
+		this.utilisateurDao.save(utilisateurJJP);
+		this.utilisateurDao.save(utilisateurABA);
+		this.utilisateurDao.save(utilisateurTDA);
+		this.utilisateurDao.save(utilisateurYDH);
+		
+		DaoTest.LOGGER.info( "+----------+------------------------------------------+");
+		DaoTest.LOGGER.info( "| MODULE   | GestionDUtilisateurs-03-persistence      |");
+		DaoTest.LOGGER.info( "| CLASSE   | DaoTest                                  |");
+		DaoTest.LOGGER.info( "| METHODE  | rechercherAssocierUtilisateursAvecDroits |");
+		DaoTest.LOGGER.info( "| POSITION | FIN                                      |");
+		DaoTest.LOGGER.info( "+----------+------------------------------------------+");
+	}
+	
+	/**
+	 * <b>EFFECTUER LES OPERATIONS SUIVANTES SUR LES OBJETS METIER (ENTITES) : </b><br/>
+	 * <br/>
+	 *    (01.)RECHERCHER EN BDD LES OBJETS METIERS INDIQUES.<br/>
+	 *    (02.)CREER DES ASSOCIATIONS ENTRE LES OBJETS METIERS INDIQUES.<br/>
+	 *    (03.)SAUVEGARDER EN BDD LES ASSOCIATIONS CREEES.<br/>
+	 *    (04.)OBJETS METIERS A TRAITER : 'UTILISATEUR' ET 'PERSONNE'.<br/>
+	 */
+	private void rechercherAssocierUtilisateursAvecPersonnes() {
+		
+		DaoTest.LOGGER.info( "+----------+---------------------------------------------+");
+		DaoTest.LOGGER.info( "| MODULE   | GestionDUtilisateurs-03-persistence         |");
+		DaoTest.LOGGER.info( "| CLASSE   | DaoTest                                     |");
+		DaoTest.LOGGER.info( "| METHODE  | rechercherAssocierUtilisateursAvecPersonnes |");
+		DaoTest.LOGGER.info( "| POSITION | DEBUT                                       |");
+		DaoTest.LOGGER.info( "+----------+---------------------------------------------+");
+
+		////////////////////////////////////////////////////////////////////////
+		// (01.)RECHERCHER DES OBJETS METIER DES TYPES CI-DESSOUS :
+		//
+		//      -> LES PERSONNES    (CRITERE : LE MAIL      ).
+		//      -> LES UTILISATEURS (CRITERE : L'IDENTIFIANT).
+		////////////////////////////////////////////////////////////////////////
+		DaoTest.LOGGER.info("+-------------------------------------------------------------------------+");
+		DaoTest.LOGGER.info("|                 (01.)RECHERCHER EN BDD LES OBJETS A ASSOCIER :          |");
+		DaoTest.LOGGER.info("+-------------------------------------------------------------------------+");
+		
+		Personne personneJJP = this.personneDao.findByMail("jean-jacques.pagan@afpa.fr");
+		Personne personneABA = this.personneDao.findByMail("amine.bachri@afpa.fr"      );
+		Personne personneTDA = this.personneDao.findByMail("tcharou.dalgalian@afpa.fr" );
+		Personne personneYDH = this.personneDao.findByMail("yves.de-Hanot@afpa.fr"     );
+
+		// Personne personneABO = this.personneDao.findByMail("azzedine.bouhbel@afpa.fr"  );
+		// Personne personneMDR = this.personneDao.findByMail("manuel.da-rocha@afpa.fr"   );
+		// Personne personneFDE = this.personneDao.findByMail("francis.deschamps@afpa.fr" );
+		// Personne personneEDO = this.personneDao.findByMail("emryck.dore@afpa.fr"       );
+		
+		// Personne personneGDU = this.personneDao.findByMail("gaspard.duringer@afpa.fr"  );
+		// Personne personneNEF = this.personneDao.findByMail("najim.el-fateoui@afpa.fr"  );
+		// Personne personneKFL = this.personneDao.findByMail("kevin.flamand@afpa.fr"     );
+		// Personne personneTGA = this.personneDao.findByMail("thomas.garnier@afpa.fr"    );
+		
+		// Personne personneBLA = this.personneDao.findByMail("baptiste.lavignon@afpa.fr" );
+		// Personne personneGMA = this.personneDao.findByMail("guillaume.martin@afpa.fr"  );
+		// Personne personneAMA = this.personneDao.findByMail("auriane.masse@afpa.fr"     );
+		// Personne personneAMO = this.personneDao.findByMail("amin.mohamed@afpa.fr"      );
+		
+		// Personne personneCPL = this.personneDao.findByMail("cedric.plouchard@afpa.fr"  );
+		// Personne personneDRA = this.personneDao.findByMail("dina.rajaomazava@afpa.fr"  );
+		// Personne personneMSA = this.personneDao.findByMail("mehdi.salame@afpa.fr"      );
+		// Personne personneGSI = this.personneDao.findByMail("gilles.silotia@afpa.fr"    );
+		
+		// Personne personneLVU = this.personneDao.findByMail("laureen.vuillaume@afpa.fr" );
+
+		Utilisateur utilisateurJJP = this.utilisateurDao.findByIdentifiant("jean-jacques.pagan");
+		Utilisateur utilisateurABA = this.utilisateurDao.findByIdentifiant("amine.bachri"      );
+		Utilisateur utilisateurTDA = this.utilisateurDao.findByIdentifiant("tcharou.dalgalian" );
+		Utilisateur utilisateurYDH = this.utilisateurDao.findByIdentifiant("yves.de-Hanot"     );
+		
+		////////////////////////////////////////////////////////////////////////
+		// (02.)ASSOCIER LES OBJETS ENTRE EUX :
+		//      (EN PRENANT UN OBJET DE CHACUN DES TYPES CI-DESSOUS)
+		//
+		//      -> LE TYPE 'UTILISATEUR'
+		//      -> LE TYPE 'PERSONNE'
+		////////////////////////////////////////////////////////////////////////
+		DaoTest.LOGGER.info("+-------------------------------------------------------------------------+");
+		DaoTest.LOGGER.info("|                 (02.)ASSOCIER DES OBJETS LES UNS AUX AUTRES :           |");
+		DaoTest.LOGGER.info("+-------------------------------------------------------------------------+");
+
+		utilisateurJJP.setPersonne (personneJJP);
+		utilisateurABA.setPersonne (personneABA);
+		utilisateurTDA.setPersonne (personneTDA);
+		utilisateurYDH.setPersonne (personneYDH);
+
+		// utilisateurABO.setPersonne (personneABO);
+		// utilisateurMDR.setPersonne (personneMDR);
+		// utilisateurFDE.setPersonne (personneFDE);
+		// utilisateurEDO.setPersonne (personneEDO);
+
+		// utilisateurGDU.setPersonne (personneGDU);
+		// utilisateurNEF.setPersonne (personneNEF);
+		// utilisateurKFL.setPersonne (personneKFL);
+		// utilisateurTGA.setPersonne (personneTGA);
+
+		// utilisateurBLA.setPersonne (personneBLA);
+		// utilisateurGMA.setPersonne (personneGMA);
+		// utilisateurAMA.setPersonne (personneAMA);
+		// utilisateurAMO.setPersonne (personneAMO);
+
+		// utilisateurCPL.setPersonne (personneCPL);
+		// utilisateurDRA.setPersonne (personneDRA);
+		// utilisateurMSA.setPersonne (personneMSA);
+		// utilisateurGSI.setPersonne (personneGSI);
+
+		// utilisateurLVU.setPersonne (personneLVU);
+		
+		////////////////////////////////////////////////////////////////////////
+		// (03.)SAUVEGARDER EN BDD LES ASSOCIATIONS ENTRE 'UTILISATEUR' ET 'PERSONNE'.
+		////////////////////////////////////////////////////////////////////////
+		DaoTest.LOGGER.info("+-------------------------------------------------------------------------+");
+		DaoTest.LOGGER.info("|                 (03.)SAUVEGARDER EN BDD LES ASSOCIATIONS ENTRE OBJETS : |");
+		DaoTest.LOGGER.info("+-------------------------------------------------------------------------+");
+		
+		this.utilisateurDao.save(utilisateurJJP);
+		this.utilisateurDao.save(utilisateurABA);
+		this.utilisateurDao.save(utilisateurTDA);
+		this.utilisateurDao.save(utilisateurYDH);
+		
+		DaoTest.LOGGER.info( "+----------+---------------------------------------------+");
+		DaoTest.LOGGER.info( "| MODULE   | GestionDUtilisateurs-03-persistence         |");
+		DaoTest.LOGGER.info( "| CLASSE   | DaoTest                                     |");
+		DaoTest.LOGGER.info( "| METHODE  | rechercherAssocierUtilisateursAvecPersonnes |");
+		DaoTest.LOGGER.info( "| POSITION | FIN                                         |");
+		DaoTest.LOGGER.info( "+----------+---------------------------------------------+");
+	}	
+	
+	
+	/**
+	 * <b>CREER UNE LISTE D'OBJETS DE TYPE : 'DROITS'</b>
+	 *
+	 * @return         List<Droit> La liste des objets crees (de type 'Droit').
+	 */
+	private List<Droit> creerDroits() {
+		
+		DaoTest.LOGGER.info("CLASS : DaoTest -- METHOD : creerDroits -- BEGIN");
+		
+		DaoTest.LOGGER.info("+----------------------------------------------------+");
+		DaoTest.LOGGER.info("| OBJETS DE TYPE 'DROIT' : CREATION                  |");
+		DaoTest.LOGGER.info("+----------------------------------------------------+");
+
+		final Droit droitAdm = new Droit("Administrateur");
+		final Droit droitUti = new Droit("Utilisateur"   );
+		
+		final List<Droit> droitsCreated = new ArrayList<Droit>();
+		
+		droitsCreated.add(droitAdm);
+		droitsCreated.add(droitUti);
+		
+		DaoTest.LOGGER.info("CLASS : DaoTest -- METHOD : creerDroits -- END");
+		return droitsCreated;
+	}
+
+	/**
+	 * <b>CREER UNE LISTE D'OBJETS DE TYPE : 'PERSONNE'</b>
+	 *
+	 * @return         List<Personne> La liste des objets crees (de type 'Personne').
+	 */
+	private List<Personne> creerPersonnes() {
+		
+		DaoTest.LOGGER.info("CLASS : DaoTest -- METHOD : creerPersonnes -- BEGIN");
+		
+		DaoTest.LOGGER.info("+----------------------------------------------------+");
+		DaoTest.LOGGER.info("| OBJETS DE TYPE 'PERSONNE' : CREATION               |");
+		DaoTest.LOGGER.info("+----------------------------------------------------+");
+
+		final Personne personneJJP = new Personne("Pagan"      , "Jean-Jacques", "jean-jacques.pagan@afpa.fr");
+		final Personne personneABA = new Personne("Bachri"     , "Amine"       , "amine.bachri@afpa.fr"      );
+		final Personne personneTDA = new Personne("Dalgalian"  , "Tcharou"     , "tcharou.dalgalian@afpa.fr" );
+		final Personne personneYDH = new Personne("De-Hanot"   , "Yves"        , "yves.de-hanot@afpa.fr"     );
+		
+		final Personne personneABO = new Personne("Bouhbel"    , "Azzedine"    , "azzedine.bouhbel@afpa.fr"  );
+		final Personne personneMDR = new Personne("Da-Rocha"   , "Manuel"      , "manuel.da-rocha@afpa.fr"   );
+		final Personne personneFDE = new Personne("Deschamps"  , "Francis"     , "francis.deschamps@afpa.fr" );
+		final Personne personneEDO = new Personne("Dore"       , "Emryck"      , "emryck.dore@afpa.fr"       );
+		
+		final Personne personneGDU = new Personne("Duringer"   , "Gaspard"     , "gaspard.duringer@afpa.fr"  );
+		final Personne personneNEF = new Personne("El-Fateoui" , "Najim"       , "najim.el-fateoui@afpa.fr"  );
+		final Personne personneKFL = new Personne("Flamand"    , "Kevin"       , "kevin.flamand@afpa.fr"     );
+		final Personne personneTGA = new Personne("Garnier"    , "Thomas"      , "thomas.garnier@afpa.fr"    );
+		
+		final Personne personneBLA = new Personne("Lavignon"   , "Baptiste"    , "baptiste.lavignon@afpa.fr" );
+		final Personne personneGMA = new Personne("Martin"     , "Guillaume"   , "guillaume.martin@afpa.fr"  );
+		final Personne personneAMA = new Personne("Masse"      , "Auriane"     , "auriane.masse@afpa.fr"     );
+		final Personne personneAMO = new Personne("Mohamed"    , "Amin"        , "amin.mohamed@afpa.fr"      );
+		
+		final Personne personneCPL = new Personne("Plouchard"  , "Cedric"      , "cedric.plouchard@afpa.fr"  );
+		final Personne personneDRA = new Personne("Rajaomazava", "Dina"        , "dina.rajaomazava@afpa.fr"  );
+		final Personne personneMSA = new Personne("Salame"     , "Mehdi"       , "mehdi.salame@afpa.fr"      );
+		final Personne personneGSI = new Personne("Silotia"    , "Gilles"      , "gilles.silotia@afpa.fr"    );
+		
+		final Personne personneLVU = new Personne("Vuillaume"  , "Laureen"     , "laureen.vuillaume@afpa.fr" );
+
+		final List<Personne> personnesCreated = new ArrayList<Personne>();
+		
+		personnesCreated.add(personneJJP);
+		personnesCreated.add(personneABA);
+		personnesCreated.add(personneTDA);
+		personnesCreated.add(personneYDH);
+
+		personnesCreated.add(personneABO);
+		personnesCreated.add(personneMDR);
+		personnesCreated.add(personneFDE);
+		personnesCreated.add(personneEDO);
+		
+		personnesCreated.add(personneGDU);
+		personnesCreated.add(personneNEF);
+		personnesCreated.add(personneKFL);
+		personnesCreated.add(personneTGA);
+		
+		personnesCreated.add(personneBLA);
+		personnesCreated.add(personneGMA);
+		personnesCreated.add(personneAMA);
+		personnesCreated.add(personneAMO);
+		
+		personnesCreated.add(personneCPL);
+		personnesCreated.add(personneDRA);
+		personnesCreated.add(personneMSA);
+		personnesCreated.add(personneGSI);
+		
+		personnesCreated.add(personneLVU);
+		
+		DaoTest.LOGGER.info("CLASS : DaoTest -- METHOD : creerPersonnes -- END");
+		return personnesCreated;
+	}
+
+	/**
+	 * <b>CREER UNE LISTE D'OBJETS DE TYPE : 'UTILISATEUR'</b>
+	 *
+	 * @return         List<Utilisateur> La liste des objets crees (de type 'Utilisateur').
+	 */
+	private List<Utilisateur> creerUtilisateurs() {
+		
+		DaoTest.LOGGER.info("CLASS : DaoTest -- METHOD : creerUtilisateurs -- BEGIN");
+		
+		DaoTest.LOGGER.info("+----------------------------------------------------+");
+		DaoTest.LOGGER.info("| OBJETS DE TYPE 'UTILISATEUR' : CREATION            |");
+		DaoTest.LOGGER.info("+----------------------------------------------------+");
+
+		final Utilisateur utilisateurJJP = new Utilisateur("jean-jacques.pagan", "xxxx");
+		final Utilisateur utilisateurABA = new Utilisateur("amine.bachri"      , "xxxx");
+		final Utilisateur utilisateurTDA = new Utilisateur("tcharou.dalgalian" , "xxxx");
+		final Utilisateur utilisateurYDH = new Utilisateur("yves.de-hanot"     , "xxxx");
+		
+		final Utilisateur utilisateurABO = new Utilisateur("azzedine.bouhbel"  , "xxxx");
+		final Utilisateur utilisateurMDR = new Utilisateur("manuel.da-rocha"   , "xxxx");
+		final Utilisateur utilisateurFDE = new Utilisateur("francis.deschamps" , "xxxx");
+		final Utilisateur utilisateurEDO = new Utilisateur("emryck.dore"       , "xxxx");
+		
+		final Utilisateur utilisateurGDU = new Utilisateur("gaspard.duringer"  , "xxxx");
+		final Utilisateur utilisateurNEF = new Utilisateur("najim.el-fateoui"  , "xxxx");
+		final Utilisateur utilisateurKFL = new Utilisateur("kevin.flamand"     , "xxxx");
+		final Utilisateur utilisateurTGA = new Utilisateur("thomas.garnier"    , "xxxx");
+		
+		final Utilisateur utilisateurBLA = new Utilisateur("baptiste.lavignon" , "xxxx");
+		final Utilisateur utilisateurGMA = new Utilisateur("guillaume.martin"  , "xxxx");
+		final Utilisateur utilisateurAMA = new Utilisateur("auriane.masse"     , "xxxx");
+		final Utilisateur utilisateurAMO = new Utilisateur("amin.mohamed"      , "xxxx");
+		
+		final Utilisateur utilisateurCPL = new Utilisateur("cedric.plouchard"  , "xxxx");
+		final Utilisateur utilisateurDRA = new Utilisateur("dina.rajaomazava"  , "xxxx");
+		final Utilisateur utilisateurMSA = new Utilisateur("mehdi.salame"      , "xxxx");
+		final Utilisateur utilisateurGSI = new Utilisateur("gilles.silotia"    , "xxxx");
+		
+		final Utilisateur utilisateurLVU = new Utilisateur("laureen.vuillaume" , "xxxx");
+
+		final List<Utilisateur> utilisateursCreated = new ArrayList<Utilisateur>();
+		
+		utilisateursCreated.add(utilisateurJJP);
+		utilisateursCreated.add(utilisateurABA);
+		utilisateursCreated.add(utilisateurTDA);
+		utilisateursCreated.add(utilisateurYDH);
+		
+		utilisateursCreated.add(utilisateurABO);
+		utilisateursCreated.add(utilisateurMDR);
+		utilisateursCreated.add(utilisateurFDE);
+		utilisateursCreated.add(utilisateurEDO);
+		
+		utilisateursCreated.add(utilisateurGDU);
+		utilisateursCreated.add(utilisateurNEF);
+		utilisateursCreated.add(utilisateurKFL);
+		utilisateursCreated.add(utilisateurTGA);
+		
+		utilisateursCreated.add(utilisateurBLA);
+		utilisateursCreated.add(utilisateurGMA);
+		utilisateursCreated.add(utilisateurAMA);
+		utilisateursCreated.add(utilisateurAMO);
+		
+		utilisateursCreated.add(utilisateurCPL);
+		utilisateursCreated.add(utilisateurDRA);
+		utilisateursCreated.add(utilisateurMSA);
+		utilisateursCreated.add(utilisateurGSI);
+		
+		utilisateursCreated.add(utilisateurLVU);
+		
+		DaoTest.LOGGER.info("CLASS : DaoTest -- METHOD : creerUtilisateurs -- END");
+		return utilisateursCreated;
+	}
+
+	/**
+	 * <b>INSERER UNE LISTE D'OBJETS DE TYPE : 'DROITS'</b>
+	 *
+	 * @param  pDroits Une liste de droits.
+	 * @return         List<Droit> La liste des objets crees (de type 'Droit').
+	 */
+	private List<Droit> sauvegarderDroits(final List<Droit> pDroits) {
+		
+		DaoTest.LOGGER.info("CLASS : DaoTest -- METHOD : sauvegarderDroits -- BEGIN");
+		
+		DaoTest.LOGGER.info("+----------------------------------------------------+");
+		DaoTest.LOGGER.info("| OBJETS DE TYPE 'DROIT' : SAUVEGARDE                |");
+		DaoTest.LOGGER.info("+----------------------------------------------------+");
+
+		final List<Droit> droitsCreated = new ArrayList<Droit>();
+		
+		for (final Droit droit : pDroits) {
+			final Droit droitCreated = this.droitDao.save(droit);
+			droitsCreated.add(droitCreated);
+		}
+		
+		DaoTest.LOGGER.info("CLASS : DaoTest -- METHOD : sauvegarderDroits -- END");
+		return droitsCreated;
+	}
+
+	/**
+	 * <b>INSERER UNE LISTE D'OBJETS DE TYPE : 'PERSONNE'</b>
+	 *
+	 * @param  pPersonnes Une liste de personnes.
+	 * @return            List<Personne> La liste des objets crees (de type 'Personne').
+	 */
+	private List<Personne> sauvegarderPersonnes(final List<Personne> pPersonnes) {
+		
+		DaoTest.LOGGER.info("CLASS : DaoTest -- METHOD : sauvegarderPersonnes -- BEGIN");
+		
+		DaoTest.LOGGER.info("+----------------------------------------------------+");
+		DaoTest.LOGGER.info("| OBJETS DE TYPE 'PERSONNE' : SAUVEGARDE             |");
+		DaoTest.LOGGER.info("+----------------------------------------------------+");
+
+		final List<Personne> personnesCreated = new ArrayList<Personne>();
+		
+		for (final Personne personne : pPersonnes) {
+			final Personne personneCreated = this.personneDao.save(personne);
+			personnesCreated.add(personneCreated);
+		}
+		
+		DaoTest.LOGGER.info("CLASS : DaoTest -- METHOD : sauvegarderPersonnes -- END");
+		return personnesCreated;
+	}
+	
+	/**
+	 * <b>INSERER UNE LISTE D'OBJETS DE TYPE : 'UTILISATEUR'</b>
+	 *
+	 * @param  pUtilisateurs Une liste d'utilisateurs.
+	 * @return            List<Utilisateur> La liste des objets crees (de type 'Utilisateur').
+	 */
+	private List<Utilisateur> sauvegarderUtilisateurs(final List<Utilisateur> pUtilisateurs) {
+		
+		DaoTest.LOGGER.info("CLASS : DaoTest -- METHOD : sauvegarderUtilisateurs -- BEGIN");
+		
+		DaoTest.LOGGER.info("+----------------------------------------------------+");
+		DaoTest.LOGGER.info("| OBJETS DE TYPE 'UTILISATEUR' : SAUVEGARDE          |");
+		DaoTest.LOGGER.info("+----------------------------------------------------+");
+
+		final List<Utilisateur> utilisateursCreated = new ArrayList<Utilisateur>();
+		
+		for (final Utilisateur utilisateur : pUtilisateurs) {
+			final Utilisateur utilisateurCreated = this.utilisateurDao.save(utilisateur);
+			utilisateursCreated.add(utilisateurCreated);
+		}
+		
+		DaoTest.LOGGER.info("CLASS : DaoTest -- METHOD : sauvegarderUtilisateurs -- END");
+		return utilisateursCreated;
+	}
+
+	/**
+	 * <b>AFFICHER UNE LISTE D'OBJETS DE TYPE : 'DROIT'</b>
+	 *
+	 * @param pDroits Une liste de droits.
+	 */
+	private void afficherDroits(final List<Droit> pDroits) {
+		
+		DaoTest.LOGGER.info("CLASS : DaoTest -- METHOD : afficherDroits -- BEGIN");
+		
+		DaoTest.LOGGER.info("+--------------------------------------+");
+		DaoTest.LOGGER.info("| OBJETS DE TYPE 'DROIT' :             |");
+		DaoTest.LOGGER.info("+------+-------------------------------+");
+		DaoTest.LOGGER.info("| ID : | LIBELLE :                     |");
+		DaoTest.LOGGER.info("+------+-------------------------------+");
+		
+		for (final Droit droit : pDroits) {
+			DaoTest.LOGGER.info("|    " + droit.getId() + " | " + droit.getLibelle() + "\t\t|");
+			DaoTest.LOGGER.info("+------+-------------------------------+");
+		}
+		DaoTest.LOGGER.info("CLASS : DaoTest -- METHOD : afficherDroits -- END");
+	}
+	
+	/**
+	 * <b>AFFICHER UNE LISTE D'OBJETS DE TYPE : 'PERSONNE'</b>
+	 *
+	 * @param pPersonnes Une liste de personnes.
+	 */
+	private void afficherPersonnes(final List<Personne> pPersonnes) {
+		
+		DaoTest.LOGGER.info("CLASS : DaoTest -- METHOD : afficherPersonnes -- BEGIN");
+		
+		DaoTest.LOGGER.info("+--------------------------------------+");
+		DaoTest.LOGGER.info("| OBJETS DE TYPE 'PERSONNE' :          |");
+		DaoTest.LOGGER.info("+------+-------------------------------+");
+		DaoTest.LOGGER.info("| ID : | MAIL :                        |");
+		DaoTest.LOGGER.info("+------+-------------------------------+");
+		
+		for (final Personne personne : pPersonnes) {
+			DaoTest.LOGGER.info("|    " + personne.getId() + " | " + personne.getMail() + "\t\t|");
+			DaoTest.LOGGER.info("+------+-------------------------------+");
+		}
+		DaoTest.LOGGER.info("CLASS : DaoTest -- METHOD : afficherPersonnes -- END");
+	}
+	
+	/**
+	 * <b>AFFICHER UNE LISTE D'OBJETS DE TYPE : 'UTILISATEUR'</b>
+	 *
+	 * @param pUtilisateurs Une liste d'utilisateurs.
+	 */
+	private void afficherUtilisateurs(final List<Utilisateur> pUtilisateurs) {
+		
+		DaoTest.LOGGER.info("CLASS : DaoTest -- METHOD : afficherUtilisateurs -- BEGIN");
+		
+		DaoTest.LOGGER.info("+--------------------------------------+");
+		DaoTest.LOGGER.info("| OBJETS DE TYPE 'UTILISATEUR' :       |");
+		DaoTest.LOGGER.info("+------+-------------------------------+");
+		DaoTest.LOGGER.info("| ID : | IDENTIFIANT :                 |");
+		DaoTest.LOGGER.info("+------+-------------------------------+");
+		
+		for (final Utilisateur utilisateur : pUtilisateurs) {
+			DaoTest.LOGGER.info("|    " + utilisateur.getId() + " | " + utilisateur.getIdentifiant() + "\t\t|");
+			DaoTest.LOGGER.info("+--------------------------------------+");
+		}
+		DaoTest.LOGGER.info("CLASS : DaoTest -- METHOD : afficherUtilisateurs -- END");
+	}
+}

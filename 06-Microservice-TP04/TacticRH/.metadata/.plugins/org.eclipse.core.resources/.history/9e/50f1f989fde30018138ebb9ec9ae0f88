@@ -1,0 +1,117 @@
+package fr.tacticrh.utilisateur.persistence.dao;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import fr.tacticrh.utilisateur.persistence.model.Personne;
+import fr.tacticrh.utilisateur.persistence.model.Role;
+import fr.tacticrh.utilisateur.persistence.model.Utilisateur;
+
+/**
+ * <b>COMPOSANT POSSEDANT LES FONCTIONNALITES CI-DESSOUS:</b><br/>
+ * <br/>
+ * ->LES FONCTIONNALITES DE TEST DE LA PERSISTANCE SUR LES ENTITE CONCERNEES.<br/>
+ * ->ENTITE : 'Utilisateur', 'Personne'.<br/> 
+ */    
+@Component
+public class DaoTest {
+	
+	
+	/**
+	 * <b>OBJET QUI POSSEDE LES FONCTIONNALITES SUIVANTES : </b> <br/>
+	 * <br/>
+	 * Les fonctionnalites d'ecriture de messages de log dans la console.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(DaoTest.class);
+
+	/**
+	 * <b>COMPOSANT DE PERSISTANCE RELATIF A L'ENTITE CI-DESSOUS :</b><br/>
+	 * <br/>
+	 * ->ENTITE : 'Role'.<br/> 
+	 */    
+    @Autowired
+    private RoleDao roleDao;
+
+    /**
+	 * <b>COMPOSANT DE PERSISTANCE RELATIF A L'ENTITE CI-DESSOUS :</b><br/>
+	 * <br/>
+	 * ->ENTITE : 'Utilisateur'.<br/> 
+	 */    
+    @Autowired
+    private UtilisateurDao utilisateurDao;
+
+	/**
+	 * <b>COMPOSANT DE PERSISTANCE RELATIF A L'ENTITE CI-DESSOUS :</b><br/>
+	 * <br/>
+	 * ->ENTITE : 'Personne'.<br/> 
+	 */    
+    @Autowired
+    private PersonneDao personneDao;
+
+    
+    /**
+     * <b>EXECUTION DE LA SEQUENCE DE TEST COMPLETE</b><br/>
+     */
+    public void execute() {
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : execute -- BEGIN");
+		
+		this.setUp();
+		this.allTests();
+		this.tearDown();
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : execute -- END");
+	}
+    
+    /**
+     * <b>ALIMENTER LA BASE DE DONNEES</b><br/>
+     */
+    private void setUp() {
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : setUp -- BEGIN");
+		
+		Role roleUti = roleDao.findByLibelle("Utilisateur"   );
+		Role roleCdt = roleDao.findByLibelle("Candidat"      );
+		Role roleMgr = roleDao.findByLibelle("Manager"       );
+		Role roleAdm = roleDao.findByLibelle("Administrateur");
+		
+		Personne personneYDH = new Personne("De-Hanot" , "Yves"        , "01/01/2000");
+		Personne personneTDA = new Personne("Dalgalian", "Tcharou"     , "01/01/2000");
+		Personne personneABC = new Personne("Bachri"   , "Amin"        , "01/01/2000");
+		Personne personneJJP = new Personne("Pagan"    , "Jean-Jacques", "01/01/2000");
+		
+		Utilisateur utilisateurYDH = new Utilisateur(personneYDH, "yves.de-hanot@afpa.fr"     , "ydh", roleUti);
+		Utilisateur utilisateurTDA = new Utilisateur(personneTDA, "tcharou.dalgalian@afpa.fr" , "tda", roleCdt);
+		Utilisateur utilisateurABC = new Utilisateur(personneABC, "amin.bachri@afpa.fr"       , "abc", roleMgr);
+		Utilisateur utilisateurJJP = new Utilisateur(personneJJP, "jean-jacques.pagan@afpa.fr", "jjp", roleAdm);
+		
+		this.utilisateurDao.save(utilisateurYDH);
+		this.utilisateurDao.save(utilisateurTDA);
+		this.utilisateurDao.save(utilisateurABC);
+		this.utilisateurDao.save(utilisateurJJP);
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : setUp -- END");
+	}    
+
+    /**
+     * <b>VIDER LA BASE DE DONNEES</b><br/>
+     */
+    private void tearDown() {
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : tearDown -- BEGIN");
+		
+		this.utilisateurDao.findBy
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : tearDown -- END");
+	}    
+
+    /**
+     * <b>EFFECTUER LES TESTS SUR LES DAO</b><br/>
+     */
+    private void allTests() {
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : allTests -- BEGIN");
+		
+		LOGGER.info("CLASS : " + this.getClass().getSimpleName() + " -- METHOD : allTests -- END");
+	}    
+}
